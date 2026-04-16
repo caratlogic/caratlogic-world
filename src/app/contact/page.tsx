@@ -25,8 +25,8 @@ const contactInfo = [
     {
         icon: Phone,
         label: "Call Us",
-        value: "+1 (555) 234-5678",
-        href: "tel:+15552345678",
+        value: "+32 499 71 27 25 ",
+        href: "tel:+32499712725",
     },
     {
         icon: MapPin,
@@ -61,7 +61,7 @@ export default function ContactPage() {
     const handleChange = (
         e: React.ChangeEvent<
             HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-        >
+        >,
     ) => {
         setFormState((prev) => ({
             ...prev,
@@ -84,13 +84,17 @@ export default function ContactPage() {
             const data = await res.json();
 
             if (!res.ok) {
-                setErrorMessage(data.error || "Something went wrong. Please try again.");
+                setErrorMessage(
+                    data.error || "Something went wrong. Please try again.",
+                );
                 return;
             }
 
             setIsSubmitted(true);
         } catch {
-            setErrorMessage("Network error. Please check your connection and try again.");
+            setErrorMessage(
+                "Network error. Please check your connection and try again.",
+            );
         } finally {
             setIsSubmitting(false);
         }
@@ -254,7 +258,7 @@ export default function ContactPage() {
                                                     onChange={handleChange}
                                                     onFocus={() =>
                                                         setFocusedField(
-                                                            "company"
+                                                            "company",
                                                         )
                                                     }
                                                     onBlur={() =>
@@ -315,10 +319,13 @@ export default function ContactPage() {
                                                     whileHover={{ scale: 1.03 }}
                                                     whileTap={{ scale: 0.97 }}
                                                     onClick={() =>
-                                                        setFormState((prev) => ({
-                                                            ...prev,
-                                                            inquiryType: type,
-                                                        }))
+                                                        setFormState(
+                                                            (prev) => ({
+                                                                ...prev,
+                                                                inquiryType:
+                                                                    type,
+                                                            }),
+                                                        )
                                                     }
                                                     className={`px-4 py-2.5 rounded-full text-[14px] font-medium border transition-all duration-200 cursor-pointer ${
                                                         formState.inquiryType ===
@@ -378,12 +385,22 @@ export default function ContactPage() {
                                     <motion.button
                                         type="submit"
                                         disabled={isSubmitting}
-                                        whileHover={isSubmitting ? {} : { scale: 1.01 }}
-                                        whileTap={isSubmitting ? {} : { scale: 0.98 }}
+                                        whileHover={
+                                            isSubmitting ? {} : { scale: 1.01 }
+                                        }
+                                        whileTap={
+                                            isSubmitting ? {} : { scale: 0.98 }
+                                        }
                                         className={`group w-full sm:w-auto flex items-center justify-center gap-3 bg-[#111827] text-white pl-8 pr-3 py-3.5 rounded-full font-semibold text-[15px] transition-all shadow-lg cursor-pointer ${isSubmitting ? "opacity-70" : "hover:bg-[#1F2937] hover:shadow-xl"}`}
                                     >
-                                        <span>{isSubmitting ? "Sending..." : "Send Message"}</span>
-                                        <div className={`flex items-center justify-center w-9 h-9 rounded-full bg-white text-[#111827] transition-transform duration-300 ${isSubmitting ? "animate-spin" : "group-hover:rotate-45"}`}>
+                                        <span>
+                                            {isSubmitting
+                                                ? "Sending..."
+                                                : "Send Message"}
+                                        </span>
+                                        <div
+                                            className={`flex items-center justify-center w-9 h-9 rounded-full bg-white text-[#111827] transition-transform duration-300 ${isSubmitting ? "animate-spin" : "group-hover:rotate-45"}`}
+                                        >
                                             <PaperPlaneTilt
                                                 weight="bold"
                                                 className="w-4 h-4"
