@@ -34,7 +34,6 @@ export function Header() {
     const navLinks = [
         { name: "Home", href: "/" },
         { name: "Features", href: "/#features" },
-        { name: "Pricing", href: "/#pricing" },
         { name: "Contact", href: "/contact" },
     ];
 
@@ -121,6 +120,19 @@ export function Header() {
                                 <Link
                                     key={link.name}
                                     href={link.href}
+                                    onClick={(e) => {
+                                        const hash = link.href.split("#")[1];
+                                        if (hash) {
+                                            e.preventDefault();
+                                            setShowMarquee(false);
+                                            requestAnimationFrame(() => {
+                                                const el = document.getElementById(hash);
+                                                if (el) {
+                                                    el.scrollIntoView({ behavior: "smooth" });
+                                                }
+                                            });
+                                        }
+                                    }}
                                     className="text-[15px] font-medium text-[#111827] hover:text-[#2E7D32] transition-colors"
                                 >
                                     {link.name}
@@ -130,18 +142,18 @@ export function Header() {
 
                         {/* Right side: CTA + Mobile toggle */}
                         <div className="flex items-center gap-3 z-10">
-                            {/* CTA Button - visible on all sizes */}
-                            <Link href="/contact">
+                            {/* CTA Button - desktop only */}
+                            <Link href="/contact" className="hidden md:block">
                                 <motion.div
                                     whileHover={{ scale: 1.02 }}
                                     whileTap={{ scale: 0.98 }}
-                                    className="group flex items-center gap-2 md:gap-3 bg-[#111827] text-white pl-4 md:pl-5 pr-1.5 py-1.5 rounded-full font-medium text-[13px] md:text-[15px] hover:bg-[#1F2937] transition-colors shadow-sm"
+                                    className="group flex items-center gap-3 bg-[#111827] text-white pl-5 pr-1.5 py-1.5 rounded-full font-medium text-[15px] hover:bg-[#1F2937] transition-colors shadow-sm"
                                 >
                                     <span>Book a Demo</span>
-                                    <div className="flex items-center justify-center w-7 h-7 md:w-8 md:h-8 rounded-full bg-white text-[#111827] transition-transform duration-300 group-hover:rotate-45">
+                                    <div className="flex items-center justify-center w-8 h-8 rounded-full bg-white text-[#111827] transition-transform duration-300 group-hover:rotate-45">
                                         <ArrowUpRight
                                             weight="bold"
-                                            className="w-3 h-3 md:w-[14px] md:h-[14px]"
+                                            className="w-[14px] h-[14px]"
                                         />
                                     </div>
                                 </motion.div>
@@ -182,13 +194,41 @@ export function Header() {
                                     >
                                         <Link
                                             href={link.href}
-                                            onClick={() => setMobileMenuOpen(false)}
+                                            onClick={(e) => {
+                                                setMobileMenuOpen(false);
+                                                const hash = link.href.split("#")[1];
+                                                if (hash) {
+                                                    e.preventDefault();
+                                                    setShowMarquee(false);
+                                                    requestAnimationFrame(() => {
+                                                        const el = document.getElementById(hash);
+                                                        if (el) {
+                                                            el.scrollIntoView({ behavior: "smooth" });
+                                                        }
+                                                    });
+                                                }
+                                            }}
                                             className="flex items-center py-3 px-3 rounded-xl text-[16px] font-medium text-[#111827] hover:bg-slate-50 hover:text-[#2E7D32] transition-colors"
                                         >
                                             {link.name}
                                         </Link>
                                     </motion.div>
                                 ))}
+                                <motion.div
+                                    initial={{ opacity: 0, x: -10 }}
+                                    animate={{ opacity: 1, x: 0 }}
+                                    transition={{ delay: navLinks.length * 0.05 }}
+                                    className="mt-2 px-3"
+                                >
+                                    <Link
+                                        href="/contact"
+                                        onClick={() => setMobileMenuOpen(false)}
+                                        className="group flex items-center justify-center gap-2 bg-[#111827] text-white px-5 py-3 rounded-full font-medium text-[15px] hover:bg-[#1F2937] transition-colors shadow-sm"
+                                    >
+                                        <span>Book a Demo</span>
+                                        <ArrowUpRight weight="bold" className="w-4 h-4" />
+                                    </Link>
+                                </motion.div>
                             </nav>
                         </motion.div>
                     )}
