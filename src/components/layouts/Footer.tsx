@@ -91,7 +91,7 @@ export function Footer() {
                         <nav className="flex flex-col gap-4">
                             <Link className="text-slate-500 dark:text-slate-400 hover:text-primary text-[15px] transition-colors" href="/">Home</Link>
                             <Link className="text-slate-500 dark:text-slate-400 hover:text-primary text-[15px] transition-colors" href="/#features">Features</Link>
-                            <Link className="text-slate-500 dark:text-slate-400 hover:text-primary text-[15px] transition-colors" href="/#pricing">Pricing</Link>
+                            <Link className="text-slate-500 dark:text-slate-400 hover:text-primary text-[15px] transition-colors" href="/pricing">Pricing</Link>
                             <Link className="text-slate-500 dark:text-slate-400 hover:text-primary text-[15px] transition-colors" href="/contact">Contact Us</Link>
                         </nav>
                     </div>
