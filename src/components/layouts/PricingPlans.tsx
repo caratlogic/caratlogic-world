@@ -12,7 +12,7 @@ import { CheckCircle, ArrowUpRight, Minus } from "@phosphor-icons/react";
  */
 
 const CONTACT_URL = "/contact";
-const PLAN_NAMES = ["Basic", "Standard", "Premium"] as const;
+const PLAN_NAMES = ["Standard", "Premium", "Enterprise"] as const;
 
 type Mark = "included" | "optional" | "absent";
 type Cell = { kind: "mark"; mark: Mark } | { kind: "text"; text: string };
@@ -80,7 +80,7 @@ const GROUPS: Group[] = [
 
 const plans = [
     {
-        name: "Basic",
+        name: "Standard",
         price: 150,
         description: "One stone program for a small desk.",
         features: [
@@ -93,7 +93,7 @@ const plans = [
         highlighted: false,
     },
     {
-        name: "Standard",
+        name: "Premium",
         price: 200,
         description: "One stone program for a full team.",
         features: [
@@ -106,7 +106,7 @@ const plans = [
         highlighted: false,
     },
     {
-        name: "Premium",
+        name: "Enterprise",
         price: 250,
         description: "Both stone programs, plus compliance.",
         features: [
@@ -254,7 +254,7 @@ export function PricingPlans() {
                 <div className="hidden lg:block overflow-x-auto rounded-2xl border border-slate-200">
                     <table className="w-full border-collapse min-w-[760px]">
                         <caption className="sr-only">
-                            CaratLogic feature comparison across the Basic, Standard and Premium plans
+                            CaratLogic feature comparison across the Standard, Premium and Enterprise plans
                         </caption>
                         <thead>
                             <tr className="bg-slate-50 border-b border-slate-200">
@@ -377,7 +377,7 @@ export function PricingPlans() {
                 </div>
 
                 <p className="mt-4 text-[12.5px] font-medium text-slate-400 leading-relaxed">
-                    Basic and Standard licence one stone program — gem or diamond. Premium runs both in the same
+                    Standard and Premium licence one stone program — gem or diamond. Enterprise runs both in the same
                     company. Every plan includes all nine core platform features, with no caps on stones, invoices,
                     documents or exports.
                 </p>
@@ -398,7 +398,7 @@ export function PricingPlans() {
                     }}
                 >
                     <span className="text-[11px] font-bold uppercase tracking-[0.15em] text-primary">
-                        Included with Premium
+                        Included with Enterprise
                     </span>
                     <h2 className="text-slate-900 text-2xl md:text-3xl font-extrabold tracking-tight mt-2">
                         The KYC Application
