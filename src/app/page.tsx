@@ -25,7 +25,7 @@ export default function Home() {
             {/* modern sections inspired by references */}
             <ZigZagFeatures />
             <FeaturesSection />
-            <Testimonials />
+            {/* <Testimonials /> */}
             {/* <PricingSection /> */}
             <FAQSection />
             <Footer />
