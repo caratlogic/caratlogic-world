@@ -1,0 +1,46 @@
+/* Section 2 — "How it comes together" (from Section2.dc.html) */
+.v2-section2 {
+    font-family: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif;
+}
+.v2-section2 a {
+    color: #111114;
+    text-decoration: none;
+}
+.v2-section2 a:hover {
+    color: #3a3a44;
+}
+.v2-section2 .cl-steps {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    column-gap: 24px;
+    row-gap: 40px;
+}
+.v2-section2 .cl-ribbon {
+    display: block;
+}
+.v2-section2 .cl-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+}
+@media (max-width: 1000px) {
+    .v2-section2 .cl-steps {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .v2-section2 .cl-ribbon {
+        display: none;
+    }
+    .v2-section2 .cl-cards {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+@media (max-width: 600px) {
+    .v2-section2 .cl-steps {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .v2-section2 .cl-pulse {
+        display: none;
+    }
+}

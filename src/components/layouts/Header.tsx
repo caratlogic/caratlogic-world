@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "motion/react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ArrowUpRight, List, X } from "@phosphor-icons/react";
 import Image from "next/image";
 
@@ -12,6 +13,7 @@ export function Header() {
     const [showMarquee, setShowMarquee] = useState(true);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const prevScrollY = useRef(0);
+    const pathname = usePathname();
 
     useMotionValueEvent(scrollY, "change", (latest) => {
         if (latest > 10) {
@@ -37,6 +39,9 @@ export function Header() {
         { name: "Pricing", href: "/pricing" },
         { name: "Contact", href: "/contact" },
     ];
+
+    // The v2 (new design) pages render their own nav
+    if (pathname?.startsWith("/v2")) return null;
 
     return (
         <>
