@@ -1,26 +1,17 @@
 "use client";
 
-import type { CSSProperties } from "react";
 import { Reveal } from "./motion";
 import "./logos.css";
 
-const SHAPES: CSSProperties[] = [
-    { width: 32, height: 32, borderRadius: 999, background: "#2b302e" },
-    { width: 30, height: 30, borderRadius: 8, background: "#2b302e", transform: "rotate(45deg) scale(0.85)" },
-    { width: 34, height: 30, background: "#2b302e", clipPath: "polygon(20% 0, 80% 0, 100% 35%, 50% 100%, 0 35%)" },
-    { width: 32, height: 32, borderRadius: 999, border: "6px solid #2b302e", boxSizing: "border-box" },
-    { width: 32, height: 32, borderRadius: "10px 999px 999px 999px", background: "#2b302e" },
-    { width: 32, height: 28, background: "#2b302e", clipPath: "polygon(50% 0, 100% 100%, 0 100%)" },
-    { width: 30, height: 30, borderRadius: 6, border: "6px solid #2b302e", boxSizing: "border-box" },
-    { width: 34, height: 30, background: "#2b302e", clipPath: "polygon(25% 0, 75% 0, 100% 50%, 75% 100%, 25% 100%, 0 50%)" },
-];
+const NAMES = ["Shapiro Gems", "Antwerp Gems", "Gem World", "Infinity Gems", "Dalila Diamonds"];
 
-const LOGOS = SHAPES.map((markStyle, i) => ({ name: `[Client logo ${i + 1}]`, markStyle }));
+/** The design lists the five names twice per row (10 logos). */
+const LOGOS = [...NAMES, ...NAMES].map((name, i) => ({ name, id: i }));
 
 /**
- * One set of 8 logos is ~2,170px wide (incl. gaps), narrower than wide or zoomed-out screens, which left
+ * One set of 10 logos is ~2,250px wide (incl. gaps), narrower than wide or zoomed-out screens, which left
  * an empty gap as the strip scrolled. Each marquee half repeats the set so it covers viewports up to
- * ~6,500px, and the duration scales with the repeats to keep the design's speed (36s per set).
+ * ~6,700px, and the duration scales with the repeats to keep the design's speed (36s per set).
  */
 const SET_REPEATS = 3;
 const MARQUEE_SECONDS = 36 * SET_REPEATS;
@@ -49,9 +40,8 @@ export function Logos() {
                     <div className="cl-track" style={{ display: "flex", width: "max-content", animationDuration: `${MARQUEE_SECONDS}s` }}>
                         {ROWS.map((row, r) => (
                             <div key={r} aria-hidden={row.hidden} style={{ display: "flex", alignItems: "center", gap: 72, paddingRight: 72 }}>
-                                {Array.from({ length: SET_REPEATS }, (_, k) => LOGOS.map((l) => ({ ...l, key: `${k}-${l.name}`, repeat: k > 0 }))).flat().map((l) => (
+                                {Array.from({ length: SET_REPEATS }, (_, k) => LOGOS.map((l) => ({ ...l, key: `${k}-${l.id}`, repeat: k > 0 }))).flat().map((l) => (
                                     <span key={l.key} className="cl-logo" aria-hidden={l.repeat || undefined} style={{ display: "flex", alignItems: "center", gap: 12, height: 48, color: "#2b302e" }}>
-                                        <span style={l.markStyle} />
                                         <span style={{ fontSize: 24, fontWeight: 700, letterSpacing: "-0.03em", whiteSpace: "nowrap" }}>{l.name}</span>
                                     </span>
                                 ))}

@@ -1,0 +1,27 @@
+/* Reviews (mobile) — Trustpilot reviews (from ReviewsMobile.dc.html) */
+.v2-reviews-m {
+    font-family: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif;
+}
+.v2-reviews-m a {
+    color: #245c3e;
+    text-decoration: none;
+}
+/* Scroll container; the cards sit in .cl-swipe-inner (the stagger wrapper), which carries the design's flex row + gap. */
+.v2-reviews-m .cl-swipe {
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 4px 20px 8px;
+    scrollbar-width: none;
+}
+.v2-reviews-m .cl-swipe::-webkit-scrollbar {
+    display: none;
+}
+.v2-reviews-m .cl-swipe-inner {
+    display: flex;
+    gap: 12px;
+    width: max-content;
+}
+.v2-reviews-m .cl-swipe article {
+    scroll-snap-align: start;
+    scroll-margin-left: 20px;
+}

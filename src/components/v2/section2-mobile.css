@@ -1,0 +1,37 @@
+/* Section 2 (mobile) — "How it comes together" (from Section2Mobile.dc.html) */
+.v2-section2-m {
+    font-family: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif;
+}
+.v2-section2-m a {
+    color: #111114;
+    text-decoration: none;
+}
+@keyframes v2S2MFlow {
+    0% {
+        top: 0%;
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        top: 100%;
+        opacity: 0;
+    }
+}
+.v2-section2-m .cl-pulse {
+    animation: v2S2MFlow 5s linear infinite;
+}
+.v2-section2-m .cl-pulse2 {
+    animation: v2S2MFlow 5s linear -2.5s infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+    .v2-section2-m .cl-pulse,
+    .v2-section2-m .cl-pulse2 {
+        animation: none;
+        opacity: 0;
+    }
+}

@@ -15,6 +15,7 @@ const COLS: { title: string; links: string[] }[] = [
 const HREFS: Record<string, string> = {
     Pricing: "/pricing",
     "Contact Us": "/contact",
+    "Book a Demo": "/contact",
 };
 
 export function Footer() {
@@ -26,24 +27,24 @@ export function Footer() {
                     <motion.div className="cl-brand" variants={itemVariants} style={{ display: "flex", flexDirection: "column", gap: 18 }}>
                         <a href="#" aria-label="Carat Logic home" style={{ alignSelf: "flex-start" }}>
                             {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src="/design/178e336f5278829808e22fbbbb1a16fc.png" alt="Carat Logic" style={{ height: 56, width: "auto", display: "block" }} />
+                            <img src="/design/a0624d387c799bef34880b03ced88e69.webp" alt="Carat Logic" style={{ height: 56, width: "auto", display: "block" }} />
                         </a>
                         <p style={{ margin: 0, maxWidth: 300, fontSize: 14, lineHeight: 1.6, color: "rgba(255,255,255,0.72)" }}>
                             Inventory management and KYC software for diamond and gemstone businesses.
                         </p>
                         <span style={{ marginTop: 8, fontSize: 20, fontWeight: 600, color: "#ffffff" }}>Have questions? Let’s talk.</span>
-                        <a href="#" style={{ display: "flex", alignItems: "center", gap: 12, fontSize: 16, color: "#ffffff" }}>
+                        <a href="mailto:hello@caratlogic.com" style={{ display: "flex", alignItems: "center", gap: 12, fontSize: 16, color: "#ffffff" }}>
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5fcf86" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                                 <rect x="3" y="5" width="18" height="14" rx="2" />
                                 <path d="m3 7 9 6 9-6" />
                             </svg>
-                            [Email address]
+                            hello@caratlogic.com
                         </a>
-                        <a href="#" style={{ display: "flex", alignItems: "center", gap: 12, fontSize: 16, color: "#ffffff" }}>
+                        <a href="tel:+32499712725" style={{ display: "flex", alignItems: "center", gap: 12, fontSize: 16, color: "#ffffff" }}>
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#5fcf86" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                                 <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z" />
                             </svg>
-                            [Phone number]
+                            +32 499 71 27 25
                         </a>
                     </motion.div>
 

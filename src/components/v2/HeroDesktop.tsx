@@ -54,7 +54,7 @@ export function HeroDesktop() {
             {/* HERO */}
             <section style={{ position: "relative", margin: "0 12px", overflowX: "clip", padding: "96px 24px 96px", boxSizing: "border-box" }}>
                 {/* hero background panel: ends partway down the product image */}
-                <div aria-hidden="true" style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 380, borderRadius: "28px 28px 0 0", background: "#f5f6f6" }} />
+                <div aria-hidden="true" style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 380, borderRadius: "28px 28px 0 0", background: "#ffffff" }} />
 
                 {/* floating product chips */}
                 {/* chips are placed within the design's 1440px artboard (1416 = 1440 - section margins), so they stay near the content on wide screens */}
@@ -142,20 +142,20 @@ export function HeroDesktop() {
                         </svg>
                     </motion.a>
                     <motion.h1 {...rise(1)} style={{ margin: "8px 0 0", fontSize: "clamp(40px, 5.6vw, 84px)", lineHeight: 1.04, fontWeight: 600, letterSpacing: "-0.035em", color: "#0c0c10" }}>
-                        Diamond Inventory, Sales &amp; KYC. <span style={{ color: "#6b6b75" }}>All in One Place.</span>
+                        Diamond and Gem Inventory, Sales &amp; KYC. <span style={{ color: "#6b6b75" }}>All in One Place.</span>
                     </motion.h1>
                     <motion.p {...rise(2)} style={{ margin: 0, maxWidth: 860, fontSize: "clamp(18px, 1.9vw, 28px)", lineHeight: 1.45, color: "#6b6b75", letterSpacing: "-0.01em" }}>
                         Track every stone, manage memos and orders, monitor payments, and onboard customers and suppliers with{" "}
                         <span style={{ color: "#111114" }}>customizable KYC workflows.</span>
                     </motion.p>
                     <motion.div {...rise(3)} style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 20, marginTop: 16 }}>
-                        <a href="#" style={{ display: "flex", alignItems: "center", gap: 16, background: "#111827", padding: "10px 10px 10px 32px", borderRadius: 999, fontSize: 20, fontWeight: 600, color: "#ffffff", boxShadow: "0 0 0 5px #ffffff, 0 0 0 6px #e0e0e8, 0 12px 28px rgba(0,0,0,0.2)" }}>
+                        <a href="/contact" style={{ display: "flex", alignItems: "center", gap: 16, background: "#111827", padding: "10px 10px 10px 32px", borderRadius: 999, fontSize: 20, fontWeight: 600, color: "#ffffff", boxShadow: "0 0 0 5px #ffffff, 0 0 0 6px #e0e0e8, 0 12px 28px rgba(0,0,0,0.2)" }}>
                             <span style={{ color: "#ffffff" }}>Get started free</span>
                             <span style={{ width: 44, height: 44, borderRadius: 999, background: "#ffffff", display: "flex", alignItems: "center", justifyContent: "center" }}>
                                 <ArrowRight size={18} stroke="#111827" />
                             </span>
                         </a>
-                        <a href="#" style={{ display: "flex", alignItems: "center", gap: 16, background: `linear-gradient(90deg, #245c3e 0%, ${ACCENT} 55%, #3f9463 100%)`, padding: "10px 10px 10px 32px", borderRadius: 999, fontSize: 20, fontWeight: 600, color: "#ffffff", boxShadow: "0 0 0 5px #ffffff, 0 0 0 6px #cfe8d0, 0 12px 28px rgba(44,111,75,0.3)" }}>
+                        <a href="/contact" style={{ display: "flex", alignItems: "center", gap: 16, background: `linear-gradient(90deg, #245c3e 0%, ${ACCENT} 55%, #3f9463 100%)`, padding: "10px 10px 10px 32px", borderRadius: 999, fontSize: 20, fontWeight: 600, color: "#ffffff", boxShadow: "0 0 0 5px #ffffff, 0 0 0 6px #cfe8d0, 0 12px 28px rgba(44,111,75,0.3)" }}>
                             <span style={{ color: "#ffffff" }}>Book a demo</span>
                             <span style={{ width: 44, height: 44, borderRadius: 999, background: "#ffffff", display: "flex", alignItems: "center", justifyContent: "center" }}>
                                 <ArrowRight size={18} stroke="#245c3e" />

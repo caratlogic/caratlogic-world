@@ -90,8 +90,35 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
+
+
+/* Bar sizing: desktop nav design, then the mobile hero header (14px 16px, 38px logo) */
+.v2-nav .cl-bar {
+    padding: 18px 24px;
+}
+.v2-nav .cl-logo {
+    height: 48px;
+}
+@media (max-width: 767px) {
+    .v2-nav .cl-bar {
+        padding: 14px 16px;
+    }
+    .v2-nav .cl-logo {
+        height: 38px;
+    }
+}
+
+/* Full-screen mobile menu (MenuMobile design) */
+.v2-nav .cl-mobile {
+    display: flex;
+}
 @media (min-width: 901px) {
     .v2-nav .cl-mobile {
         display: none;
     }
+}
+.v2-nav .cl-acc:focus-visible,
+.v2-nav .cl-x:focus-visible {
+    outline: 3px solid #317a51;
+    outline-offset: 2px;
 }

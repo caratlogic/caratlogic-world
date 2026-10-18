@@ -379,7 +379,7 @@ export function Section2() {
                     See How Carat Logic Fits Your Diamond Business.
                 </h2>
                 <a
-                    href="#"
+                    href="/contact"
                     style={{
                         display: "flex",
                         alignItems: "center",

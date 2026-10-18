@@ -3,6 +3,7 @@
 import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
 import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll } from "motion/react";
 import { EASE } from "./motion";
+import { MobileCtas } from "./HeroMobile";
 import "./navbar.css";
 
 const LOGO = "/design/a0624d387c799bef34880b03ced88e69.webp";
@@ -24,7 +25,7 @@ const MENUS: Record<"products" | "features", Mega> = {
         cols: [
             { title: "Products", links: [L("Carat Logic Inventory", "Stock, memos, orders and payments"), L("Carat Logic KYC", "Forms, documents, review and renewal")] },
             { title: "Inventory", links: [L("Diamond Inventory"), L("Gem Inventory"), L("Memo Management"), L("Orders & Invoicing")] },
-            { title: "More", links: [L("Integrations"), L("Pricing", undefined, "/pricing"), L("Book a Demo")] },
+            { title: "More", links: [L("Integrations"), L("Pricing", undefined, "/pricing"), L("Book a Demo", undefined, "/contact")] },
         ],
         cards: [
             { img: DIA, alt: "Diamond inventory screen", label: "Inventory", pos: "22% top" },
@@ -271,6 +272,164 @@ function ResourcesPanel() {
     );
 }
 
+type MobileItem = { key: string; label: string; href?: string; links?: LinkItem[] };
+
+const MOBILE_ITEMS: MobileItem[] = [
+    { key: "products", label: "Products", links: [L("Carat Logic Inventory", "Stock, memos, orders and payments"), L("Carat Logic KYC", "Forms, documents, review and renewal"), L("Integrations", "Marketplaces and e-invoicing"), L("Compare packages")] },
+    { key: "features", label: "Features", links: [L("Stone Search & Filters"), L("Quotations & Memo Alerts"), L("WhatsApp Sharing & Client Portal"), L("Financial Reports"), L("Roles & Permissions")] },
+    { key: "resources", label: "Resources", links: [L("Product Walkthrough", "Watch Inventory and KYC in action"), L("Blogs"), L("FAQs"), L("About Us")] },
+    { key: "pricing", label: "Pricing", href: "/pricing" },
+    { key: "contact", label: "Contact Us", href: "/contact" },
+];
+
+/** Full-screen mobile menu (MenuMobile design): accordion sections, contact, pinned CTAs. */
+function MobileMenu({ onClose }: { onClose: () => void }) {
+    const reduce = useReducedMotion();
+    const [section, setSection] = useState<string | null>("products");
+
+    return (
+        <motion.div
+            className="cl-mobile"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Menu"
+            initial={reduce ? { opacity: 0 } : { opacity: 0, y: -12 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={reduce ? { opacity: 0 } : { opacity: 0, y: -12 }}
+            transition={{ duration: 0.3, ease: EASE }}
+            style={{ position: "fixed", inset: 0, zIndex: 60, height: "100dvh", boxSizing: "border-box", color: "#111114", background: "#ffffff", flexDirection: "column" }}
+        >
+            {/* header */}
+            <div style={{ flex: "none", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "14px 16px", borderBottom: "1px solid #eceeed" }}>
+                <a href="/v2" aria-label="Carat Logic home" style={{ display: "flex" }} onClick={onClose}>
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={LOGO} alt="Carat Logic" style={{ height: 38, width: "auto", display: "block" }} />
+                </a>
+                <motion.button
+                    type="button"
+                    className="cl-x"
+                    aria-label="Close menu"
+                    onClick={onClose}
+                    initial={reduce ? false : { rotate: -90, scale: 0.6 }}
+                    animate={{ rotate: 0, scale: 1 }}
+                    transition={{ type: "spring", stiffness: 420, damping: 26 }}
+                    style={{ width: 44, height: 44, borderRadius: 999, border: "none", background: "#111827", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer" }}
+                >
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2.2" strokeLinecap="round" aria-hidden="true">
+                        <path d="M6 6l12 12" />
+                        <path d="M18 6 6 18" />
+                    </svg>
+                </motion.button>
+            </div>
+
+            {/* menu */}
+            <nav aria-label="Main" style={{ flex: 1, overflowY: "auto", padding: "8px 20px 20px" }}>
+                {MOBILE_ITEMS.map((it, i) => {
+                    const on = section === it.key;
+                    const panelId = `v2-mm-${it.key}`;
+                    return (
+                        <motion.div
+                            key={it.key}
+                            initial={reduce ? false : { opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.35, ease: EASE, delay: 0.06 + i * 0.05 }}
+                            style={{ borderBottom: "1px solid #eceeed" }}
+                        >
+                            {it.links ? (
+                                <>
+                                    <button
+                                        type="button"
+                                        className="cl-acc"
+                                        aria-expanded={on}
+                                        aria-controls={panelId}
+                                        onClick={() => setSection(on ? null : it.key)}
+                                        style={{ width: "100%", minHeight: 60, display: "flex", alignItems: "center", justifyContent: "space-between", padding: 0, border: "none", background: "transparent", cursor: "pointer", fontFamily: "inherit", textAlign: "left" }}
+                                    >
+                                        <span style={{ fontSize: 20, fontWeight: 600, letterSpacing: "-0.02em", color: on ? "#245c3e" : "#0c0c10", transition: "color .2s ease" }}>{it.label}</span>
+                                        <span style={{ width: 32, height: 32, borderRadius: 999, display: "flex", alignItems: "center", justifyContent: "center", background: on ? "#111827" : "#f1f3f2", transition: "background-color .2s ease" }}>
+                                            <motion.svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={on ? "#ffffff" : "#111827"} strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" animate={{ rotate: on ? 180 : 0 }} transition={{ duration: 0.2, ease: "easeOut" }}>
+                                                <path d="m6 9 6 6 6-6" />
+                                            </motion.svg>
+                                        </span>
+                                    </button>
+                                    <AnimatePresence initial={false}>
+                                        {on && (
+                                            <motion.div
+                                                id={panelId}
+                                                key="links"
+                                                initial={{ height: 0, opacity: 0 }}
+                                                animate={{ height: "auto", opacity: 1 }}
+                                                exit={{ height: 0, opacity: 0 }}
+                                                transition={{ duration: reduce ? 0 : 0.3, ease: EASE }}
+                                                style={{ overflow: "hidden" }}
+                                            >
+                                                <ul style={{ listStyle: "none", margin: 0, padding: "0 0 16px", display: "flex", flexDirection: "column", gap: 4 }}>
+                                                    {it.links.map((l) => (
+                                                        <li key={l.label}>
+                                                            <a href={l.href ?? "#"} onClick={onClose} style={{ display: "flex", flexDirection: "column", gap: 2, padding: "10px 12px", borderRadius: 12, background: "#f6f7f7" }}>
+                                                                <span style={{ fontSize: 15, fontWeight: 600, color: "#0c0c10" }}>{l.label}</span>
+                                                                {l.desc && <span style={{ fontSize: 12, lineHeight: 1.4, color: "#6b736f" }}>{l.desc}</span>}
+                                                            </a>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </motion.div>
+                                        )}
+                                    </AnimatePresence>
+                                </>
+                            ) : (
+                                <a href={it.href} onClick={onClose} style={{ minHeight: 60, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                                    <span style={{ fontSize: 20, fontWeight: 600, letterSpacing: "-0.02em", color: "#0c0c10" }}>{it.label}</span>
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#8a908d" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                        <path d="m9 6 6 6-6 6" />
+                                    </svg>
+                                </a>
+                            )}
+                        </motion.div>
+                    );
+                })}
+
+                {/* contact */}
+                <motion.div
+                    initial={reduce ? false : { opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.35, ease: EASE, delay: 0.34 }}
+                    style={{ marginTop: 24, display: "flex", flexDirection: "column", gap: 10 }}
+                >
+                    <span style={{ fontSize: 12, fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color: "#6b736f" }}>Talk to us</span>
+                    <a href="mailto:hello@caratlogic.com" style={{ display: "flex", alignItems: "center", gap: 12, fontSize: 15, color: "#111114" }}>
+                        <span style={{ width: 36, height: 36, borderRadius: 10, background: "#eef6f0", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#317a51" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                <rect x="3" y="5" width="18" height="14" rx="2" />
+                                <path d="m3 7 9 6 9-6" />
+                            </svg>
+                        </span>
+                        hello@caratlogic.com
+                    </a>
+                    <a href="tel:+32499712725" style={{ display: "flex", alignItems: "center", gap: 12, fontSize: 15, color: "#111114" }}>
+                        <span style={{ width: 36, height: 36, borderRadius: 10, background: "#eef6f0", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#317a51" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                                <path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z" />
+                            </svg>
+                        </span>
+                        +32 499 71 27 25
+                    </a>
+                </motion.div>
+            </nav>
+
+            {/* bottom actions */}
+            <motion.div
+                initial={reduce ? false : { y: 40, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.4, ease: EASE, delay: 0.15 }}
+                style={{ flex: "none", padding: "12px 16px 22px", borderTop: "1px solid #eceeed", display: "flex", gap: 8, background: "#ffffff" }}
+            >
+                <MobileCtas elevated={false} />
+            </motion.div>
+        </motion.div>
+    );
+}
+
 export function Navbar() {
     const reduce = useReducedMotion();
     const [open, setOpen] = useState<MenuKey | null>(null);
@@ -292,10 +451,19 @@ export function Navbar() {
         return () => window.removeEventListener("keydown", onKey);
     }, [open, mobileOpen]);
 
-    // At the top of the page the bar blends into the hero (#fafafa); once scrolled
-    // or with a menu open it becomes the white bar from the navigation design.
-    const solid = scrolled || open !== null || mobileOpen;
-    const ringBase = solid ? "#ffffff" : "#fafafa";
+    // Lock page scroll behind the full-screen mobile menu.
+    useEffect(() => {
+        if (!mobileOpen) return;
+        const prev = document.body.style.overflow;
+        document.body.style.overflow = "hidden";
+        return () => {
+            document.body.style.overflow = prev;
+        };
+    }, [mobileOpen]);
+
+    // At the top of the page the bar blends into the white hero; once scrolled or with a
+    // menu open it gains the bottom border from the navigation design.
+    const solid = scrolled || open !== null;
     const ringEdge = solid ? "#dfe3e1" : "#dfe7e1";
 
     return (
@@ -303,17 +471,14 @@ export function Navbar() {
             className="v2-nav"
             onMouseLeave={() => setOpen(null)}
             initial={false}
-            animate={{
-                backgroundColor: solid ? "#ffffff" : "#fafafa",
-                borderBottomColor: solid ? "#eceeed" : "rgba(236,238,237,0)",
-            }}
+            animate={{ borderBottomColor: solid ? "#eceeed" : "rgba(236,238,237,0)" }}
             transition={{ duration: 0.25, ease: "easeOut" }}
-            style={{ position: "sticky", top: 0, zIndex: 50, borderBottomWidth: 1, borderBottomStyle: "solid" }}
+            style={{ position: "sticky", top: 0, zIndex: 50, background: "#ffffff", borderBottomWidth: 1, borderBottomStyle: "solid" }}
         >
-            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24, maxWidth: 1280, margin: "0 auto", padding: "18px 24px", boxSizing: "border-box" }}>
+            <div className="cl-bar" style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 24, maxWidth: 1280, margin: "0 auto", boxSizing: "border-box" }}>
                 <a href="/v2" aria-label="Carat Logic home" style={{ display: "flex", alignItems: "center" }} onMouseEnter={() => setOpen(null)}>
                     {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={LOGO} alt="Carat Logic" style={{ height: 48, width: "auto", display: "block" }} />
+                    <img className="cl-logo" src={LOGO} alt="Carat Logic" style={{ width: "auto", display: "block" }} />
                 </a>
 
                 <nav className="cl-links" aria-label="Main" style={{ alignItems: "center", gap: 6 }}>
@@ -357,10 +522,10 @@ export function Navbar() {
                 </nav>
 
                 <a
-                    href="#"
+                    href="/contact"
                     className="cl-cta"
                     onMouseEnter={() => setOpen(null)}
-                    style={{ alignItems: "center", gap: 12, background: "#111827", color: "#ffffff", fontWeight: 600, fontSize: 16, padding: "8px 8px 8px 22px", borderRadius: 999, boxShadow: `0 0 0 4px ${ringBase}, 0 0 0 5px ${ringEdge}, 0 8px 20px rgba(0,0,0,0.18)`, transition: "box-shadow .25s ease" }}
+                    style={{ alignItems: "center", gap: 12, background: "#111827", color: "#ffffff", fontWeight: 600, fontSize: 16, padding: "8px 8px 8px 22px", borderRadius: 999, boxShadow: `0 0 0 4px #ffffff, 0 0 0 5px ${ringEdge}, 0 8px 20px rgba(0,0,0,0.18)`, transition: "box-shadow .25s ease" }}
                 >
                     <span style={{ color: "#ffffff" }}>Get Started</span>
                     <motion.span whileHover={reduce ? undefined : { x: 3 }} style={{ width: 32, height: 32, borderRadius: 999, background: "#ffffff", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -371,15 +536,15 @@ export function Navbar() {
                 <button
                     type="button"
                     className="cl-burger"
-                    aria-label={mobileOpen ? "Close menu" : "Open menu"}
+                    aria-label="Open menu"
                     aria-expanded={mobileOpen}
-                    onClick={() => setMobileOpen((v) => !v)}
-                    style={{ width: 44, height: 44, alignItems: "center", justifyContent: "center", border: "1px solid #e3e6e5", borderRadius: 12, background: "#ffffff", cursor: "pointer" }}
+                    onClick={() => setMobileOpen(true)}
+                    style={{ width: 44, height: 44, borderRadius: 999, border: "1px solid #e3e6e5", background: "#ffffff", alignItems: "center", justifyContent: "center", cursor: "pointer" }}
                 >
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111114" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
-                        <motion.path initial={false} d={mobileOpen ? "M6 6L18 18" : "M4 7L20 7"} animate={{ d: mobileOpen ? "M6 6L18 18" : "M4 7L20 7" }} />
-                        <motion.path animate={{ opacity: mobileOpen ? 0 : 1 }} d="M4 12h16" />
-                        <motion.path initial={false} d={mobileOpen ? "M6 18L18 6" : "M4 17L20 17"} animate={{ d: mobileOpen ? "M6 18L18 6" : "M4 17L20 17" }} />
+                        <path d="M4 7h16" />
+                        <path d="M4 12h16" />
+                        <path d="M4 17h16" />
                     </svg>
                 </button>
             </div>
@@ -406,42 +571,7 @@ export function Navbar() {
             </AnimatePresence>
 
             {/* mobile menu */}
-            <AnimatePresence>
-                {mobileOpen && (
-                    <motion.nav
-                        key="mobile"
-                        className="cl-mobile"
-                        aria-label="Mobile"
-                        initial={{ height: 0, opacity: 0 }}
-                        animate={{ height: "auto", opacity: 1 }}
-                        exit={{ height: 0, opacity: 0 }}
-                        transition={{ duration: 0.3, ease: EASE }}
-                        style={{ overflow: "hidden", borderTop: "1px solid #eceeed", background: "#ffffff" }}
-                    >
-                        <div style={{ display: "flex", flexDirection: "column", padding: "12px 24px 24px", gap: 4 }}>
-                            {TABS.map((t, i) => (
-                                <motion.a
-                                    key={t.key}
-                                    href={t.href ?? "#"}
-                                    onClick={() => setMobileOpen(false)}
-                                    initial={{ opacity: 0, x: -8 }}
-                                    animate={{ opacity: 1, x: 0 }}
-                                    transition={{ delay: 0.05 + i * 0.04, duration: 0.3, ease: EASE }}
-                                    style={{ display: "flex", alignItems: "center", minHeight: 44, fontSize: 18, fontWeight: 500, color: "#111114", borderBottom: "1px solid #f0f2f1" }}
-                                >
-                                    {t.label}
-                                </motion.a>
-                            ))}
-                            <a href="#" style={{ marginTop: 16, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, background: "#111827", color: "#ffffff", fontWeight: 600, fontSize: 16, padding: "8px 8px 8px 22px", borderRadius: 999 }}>
-                                <span style={{ color: "#ffffff" }}>Get Started</span>
-                                <span style={{ width: 32, height: 32, borderRadius: 999, background: "#ffffff", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                                    <Arrow size={16} stroke="#111827" width={2.2} />
-                                </span>
-                            </a>
-                        </div>
-                    </motion.nav>
-                )}
-            </AnimatePresence>
+            <AnimatePresence>{mobileOpen && <MobileMenu key="mobile-menu" onClose={() => setMobileOpen(false)} />}</AnimatePresence>
         </motion.header>
     );
 }

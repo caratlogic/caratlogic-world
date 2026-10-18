@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
-import type { CSSProperties } from "react";
+import { motion, useInView, useReducedMotion } from "motion/react";
+import { useRef, type CSSProperties } from "react";
 import { EASE, Reveal, Stagger, itemVariants } from "./motion";
 import "./pricing.css";
 
@@ -99,6 +99,8 @@ function PlanCard({ plan }: { plan: PlanInput }) {
     const featured = !!plan.featured;
     const pct = ((plan.users - 1) / (MAXU - 1)) * 100;
     const dots = Array.from({ length: MAXU }, (_, k) => k + 1);
+    const trackRef = useRef<HTMLDivElement>(null);
+    const trackInView = useInView(trackRef, { once: true, amount: 0.6 });
 
     return (
         <motion.article style={cardStyle(featured)} variants={itemVariants}>
@@ -116,13 +118,12 @@ function PlanCard({ plan }: { plan: PlanInput }) {
 
             {/* user capacity track */}
             <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                <div role="img" aria-label={`Up to ${plan.users} of ${MAXU} active users`} style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "space-between", height: 22 }}>
+                <div ref={trackRef} role="img" aria-label={`Up to ${plan.users} of ${MAXU} active users`} style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "space-between", height: 22 }}>
                     <span style={{ position: "absolute", left: 8, right: 8, top: 9, height: 4, borderRadius: 999, background: "#e3e6e5" }} />
                     <motion.span
                         style={{ position: "absolute", left: 8, top: 9, height: 4, borderRadius: 999, background: "#317a51", width: `calc((100% - 16px) * ${pct / 100})`, transformOrigin: "left center" }}
                         initial={reduce ? false : { scaleX: 0 }}
-                        whileInView={{ scaleX: 1 }}
-                        viewport={{ once: true, amount: 0.6 }}
+                        animate={reduce || trackInView ? { scaleX: 1 } : { scaleX: 0 }}
                         transition={{ duration: 0.9, ease: EASE, delay: 0.25 }}
                     />
                     {dots.map((i) => (
@@ -151,7 +152,7 @@ function PlanCard({ plan }: { plan: PlanInput }) {
                 ))}
             </ul>
 
-            <a className="cl-btn" href="#" style={btnStyle(featured)}>
+            <a className="cl-btn" href="/contact" style={btnStyle(featured)}>
                 <span style={{ color: "#ffffff" }}>Book a Demo</span>
                 <span style={{ width: 42, height: 42, borderRadius: 999, background: "#ffffff", display: "flex", alignItems: "center", justifyContent: "center" }}>
                     <ArrowRight stroke={featured ? "#245c3e" : "#111827"} />
@@ -208,7 +209,7 @@ export function Pricing() {
                                 Tell us what you trade, how many users need access and whether you need KYC. Explore the right package for your business in a product demo.
                             </p>
                         </div>
-                        <a className="cl-btn" href="#" style={{ alignSelf: "flex-start", display: "flex", alignItems: "center", gap: 14, padding: "6px 6px 6px 22px", borderRadius: 999, background: "#ffffff", color: "#111827", fontSize: 16, fontWeight: 700 }}>
+                        <a className="cl-btn" href="/contact" style={{ alignSelf: "flex-start", display: "flex", alignItems: "center", gap: 14, padding: "6px 6px 6px 22px", borderRadius: 999, background: "#ffffff", color: "#111827", fontSize: 16, fontWeight: 700 }}>
                             <span style={{ color: "#111827" }}>Book a Demo</span>
                             <span style={{ width: 38, height: 38, borderRadius: 999, background: "#317a51", display: "flex", alignItems: "center", justifyContent: "center" }}>
                                 <ArrowRight stroke="#ffffff" />

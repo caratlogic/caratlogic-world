@@ -1,0 +1,91 @@
+/* Walkthrough & Book a Demo — mobile (from Carat Logic design canvas: DemoMobile.dc.html) */
+.v2-demo-m {
+    font-family: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif;
+}
+.v2-demo-m a {
+    color: #245c3e;
+    text-decoration: none;
+}
+.v2-demo-m a:hover {
+    color: #163d29;
+}
+.v2-demo-m .cl-head {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.v2-demo-m .cl-pick {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+}
+.v2-demo-m .cl-stage {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.v2-demo-m .cl-list {
+    order: 2;
+}
+.v2-demo-m .cl-kside,
+.v2-demo-m .cl-kcol {
+    display: none;
+}
+.v2-demo-m .cl-form {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+}
+.v2-demo-m .cl-in {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 52px;
+    padding: 13px 16px;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: #ffffff;
+    font: inherit;
+    font-size: 15px;
+    color: #111114;
+}
+.v2-demo-m .cl-in:focus {
+    outline: 3px solid #8fe0a5;
+    outline-offset: 1px;
+}
+.v2-demo-m .cl-in::placeholder {
+    color: #7b837f;
+}
+/* smooth the selected/unselected style swap on product cards and interest chips */
+.v2-demo-m .cl-card,
+.v2-demo-m .cl-card > span,
+.v2-demo-m .cl-chip,
+.v2-demo-m .cl-chip > span {
+    transition:
+        background-color 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+@keyframes v2DemoMPulse {
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.55);
+    }
+    50% {
+        box-shadow: 0 0 0 16px rgba(255, 255, 255, 0);
+    }
+}
+.v2-demo-m .cl-pulse {
+    animation: v2DemoMPulse 2.4s ease-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+    .v2-demo-m .cl-pulse {
+        animation: none;
+    }
+    .v2-demo-m .cl-card,
+    .v2-demo-m .cl-card > span,
+    .v2-demo-m .cl-chip,
+    .v2-demo-m .cl-chip > span {
+        transition: none;
+    }
+}

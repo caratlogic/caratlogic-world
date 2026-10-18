@@ -9,14 +9,14 @@ const iconProps = {
     height: 24,
     viewBox: "0 0 24 24",
     fill: "none",
-    stroke: "#bfe6c9",
+    stroke: "#317a51",
     strokeWidth: 2,
     strokeLinecap: "round" as const,
     strokeLinejoin: "round" as const,
     "aria-hidden": true,
 };
 
-const ICONS: Record<number, ReactNode> = {
+export const ICONS: Record<number, ReactNode> = {
     1: (
         <svg {...iconProps}>
             <circle cx="11" cy="11" r="7" />
@@ -55,7 +55,7 @@ const ICONS: Record<number, ReactNode> = {
     ),
 };
 
-const ROWS: [string, number, string, string][] = [
+export const ROWS: [string, number, string, string][] = [
     ["cl-top", 1, "Find the Right Stone Faster", "Search diamond and gemstone inventory by specifications, certification and availability. Track stock across locations and keep pricing close at hand."],
     ["cl-top", 2, "Keep Sales and Memos Moving", "Create quotations, apply customer-specific pricing and manage memos through to invoicing. Stay on top of memo due dates with automated alerts."],
     ["cl-top", 3, "Share Stock With Your Buyers", "Share live inventory through WhatsApp and your client portal. Control pricing visibility and keep track of customer follow-ups."],
@@ -63,15 +63,7 @@ const ROWS: [string, number, string, string][] = [
     ["cl-wide", 5, "Protect Your Data. Control Team Access.", "Manage who can view and update your business records with roles and permissions. Keep your data protected with encrypted cloud storage and automatic backups."],
 ];
 
-const GLOWS = [
-    "radial-gradient(80% 90% at 100% 100%, rgba(63,148,99,0.75) 0%, rgba(63,148,99,0) 60%), linear-gradient(160deg, #0b0f0d 0%, #0f1f17 100%)",
-    "radial-gradient(85% 75% at 50% 120%, rgba(95,174,122,0.7) 0%, rgba(95,174,122,0) 62%), linear-gradient(170deg, #0a1a12 0%, #123524 100%)",
-    "radial-gradient(80% 90% at 0% 100%, rgba(49,122,81,0.85) 0%, rgba(49,122,81,0) 60%), linear-gradient(200deg, #0b0f0d 0%, #0e1c15 100%)",
-    "radial-gradient(60% 100% at 100% 100%, rgba(63,148,99,0.8) 0%, rgba(63,148,99,0) 60%), radial-gradient(45% 70% at 75% 0%, rgba(143,224,165,0.18) 0%, rgba(143,224,165,0) 70%), linear-gradient(150deg, #0b0f0d 0%, #102419 100%)",
-    "radial-gradient(60% 100% at 0% 100%, rgba(49,122,81,0.8) 0%, rgba(49,122,81,0) 60%), radial-gradient(45% 70% at 100% 0%, rgba(44,140,130,0.28) 0%, rgba(44,140,130,0) 70%), linear-gradient(210deg, #0b0f0d 0%, #0f2219 100%)",
-];
-
-const dot = { width: 4, height: 4, borderRadius: 999, background: "rgba(255,255,255,0.35)" };
+const dot = { width: 4, height: 4, borderRadius: 999, background: "#d3d8d6" };
 
 export function Platform() {
     return (
@@ -91,19 +83,19 @@ export function Platform() {
 
                 {/* 3 + 2 card grid */}
                 <Stagger className="cl-feat">
-                    {ROWS.map(([span, icon, title, desc], i) => (
+                    {ROWS.map(([span, icon, title, desc]) => (
                         // The motion wrapper carries the grid span; the article keeps the CSS hover transform.
                         <StaggerItem key={title} className={span} style={{ display: "flex" }}>
-                            <article className="cl-fc" style={{ flex: 1, position: "relative", overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "space-between", gap: 40, minHeight: 260, padding: 28, borderRadius: 22, background: GLOWS[i], border: "1px solid rgba(255,255,255,0.06)", boxShadow: "0 18px 40px rgba(10,20,14,0.18)", boxSizing: "border-box" }}>
-                                <span style={{ width: 54, height: 54, borderRadius: 14, background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.16)", display: "flex", alignItems: "center", justifyContent: "center" }}>{ICONS[icon]}</span>
+                            <article className="cl-fc" style={{ flex: 1, position: "relative", overflow: "hidden", display: "flex", flexDirection: "column", justifyContent: "space-between", gap: 40, minHeight: 260, padding: 28, borderRadius: 22, background: "#ffffff", border: "1px solid #e6e9e8", boxShadow: "0 1px 2px rgba(16,24,20,0.04), 0 14px 32px rgba(16,24,20,0.06)", boxSizing: "border-box" }}>
+                                <span style={{ width: 54, height: 54, borderRadius: 14, background: "#f5f6f6", border: "1px solid #e6e9e8", display: "flex", alignItems: "center", justifyContent: "center" }}>{ICONS[icon]}</span>
                                 <div style={{ display: "flex", flexDirection: "column", gap: 10, maxWidth: 520 }}>
-                                    <h3 style={{ margin: 0, fontSize: 22, lineHeight: 1.25, fontWeight: 600, letterSpacing: "-0.02em", color: "#ffffff" }}>{title}</h3>
-                                    <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6, color: "rgba(255,255,255,0.76)" }}>{desc}</p>
+                                    <h3 style={{ margin: 0, fontSize: 22, lineHeight: 1.25, fontWeight: 600, letterSpacing: "-0.02em", color: "#0c0c10" }}>{title}</h3>
+                                    <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6, color: "#5f6663" }}>{desc}</p>
                                 </div>
                                 <span aria-hidden="true" style={{ position: "absolute", right: 22, bottom: 22, display: "flex", gap: 6 }}>
                                     <span style={dot} />
                                     <span style={dot} />
-                                    <span style={{ ...dot, background: "#8fe0a5" }} />
+                                    <span style={{ ...dot, background: "#317a51" }} />
                                 </span>
                             </article>
                         </StaggerItem>

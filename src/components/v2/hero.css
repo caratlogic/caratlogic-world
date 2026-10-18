@@ -2,7 +2,7 @@
 .cl-root {
     font-family: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif;
     color: #111114;
-    background: #fafafa;
+    background: #ffffff;
     min-height: 100vh;
     box-sizing: border-box;
 }

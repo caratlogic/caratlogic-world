@@ -113,7 +113,7 @@ export function FAQ() {
                         <Reveal delay={0.16} style={{ display: "flex", flexDirection: "column", gap: 10, maxWidth: 440, padding: "20px 22px", borderRadius: 18, background: "#ffffff", border: "1px solid #e6e9e8" }}>
                             <span style={{ fontSize: 16, fontWeight: 600, color: "#0c0c10" }}>Have a Question About Your Business?</span>
                             <span style={{ fontSize: 14, lineHeight: 1.55, color: "#5f6663" }}>See the workflows that matter to your team in a product demo.</span>
-                            <a href="#" style={{ alignSelf: "flex-start", marginTop: 4, display: "flex", alignItems: "center", gap: 12, padding: "5px 5px 5px 18px", borderRadius: 999, background: "#111827", color: "#ffffff", fontSize: 15, fontWeight: 600 }}>
+                            <a href="/contact" style={{ alignSelf: "flex-start", marginTop: 4, display: "flex", alignItems: "center", gap: 12, padding: "5px 5px 5px 18px", borderRadius: 999, background: "#111827", color: "#ffffff", fontSize: 15, fontWeight: 600 }}>
                                 <span style={{ color: "#ffffff" }}>Book a Demo</span>
                                 <span style={{ width: 32, height: 32, borderRadius: 999, background: "#317a51", display: "flex", alignItems: "center", justifyContent: "center" }}>
                                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
