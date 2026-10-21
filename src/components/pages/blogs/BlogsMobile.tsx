@@ -8,7 +8,7 @@ import "./blogs-mobile.css";
 
 const listVariants: Variants = { hidden: {}, show: { transition: { staggerChildren: 0.08 } } };
 const cardVariants: Variants = {
-    hidden: { opacity: 0, y: 10 },
+    hidden: { opacity: 0, y: 0 },
     show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: EASE } },
     exit: { opacity: 0, scale: 0.96, transition: { duration: 0.2, ease: EASE } },
 };

@@ -266,7 +266,7 @@ export function KycDocumentsDesktop() {
                         <motion.section
                             className="cl-sec"
                             style={{ marginTop: 56, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 28, padding: 32, borderRadius: 22, background: "#111827" }}
-                            initial={reduce ? false : { opacity: 0, y: 10, scale: 0.98 }}
+                            initial={reduce ? false : { opacity: 0, y: 0, scale: 0.98 }}
                             whileInView={{ opacity: 1, y: 0, scale: 1 }}
                             viewport={REVEAL_VIEWPORT}
                             transition={{ duration: 0.7, ease: EASE }}

@@ -439,7 +439,7 @@ function Visual({ children, callouts }: { children: ReactNode; callouts: ReactNo
         <motion.div
             className="cl-vis"
             style={vPanel}
-            initial={reduce ? false : { opacity: 0, y: 10 }}
+            initial={reduce ? false : { opacity: 0, y: 0 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={REVEAL_VIEWPORT}
             transition={{ duration: 0.8, ease: EASE, delay: 0.1 }}

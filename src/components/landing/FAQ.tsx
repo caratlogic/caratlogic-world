@@ -128,7 +128,7 @@ export function FAQ() {
                         <motion.div
                             className="cl-phonewrap"
                             style={{ display: "flex", justifyContent: "center", marginTop: 18 }}
-                            initial={reduce ? false : { opacity: 0, y: 10 }}
+                            initial={reduce ? false : { opacity: 0, y: 0 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={REVEAL_VIEWPORT}
                             transition={{ duration: 0.9, ease: EASE, delay: 0.1 }}

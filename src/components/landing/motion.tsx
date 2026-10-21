@@ -7,14 +7,13 @@ import type { CSSProperties, ReactNode } from "react";
 export const EASE = [0.22, 1, 0.36, 1] as const;
 
 /*
- * Scroll-in reveals. Kept deliberately subtle: a short rise with a soft ease, started as soon as the
- * element's top edge is ~10% above the bottom of the screen. Large offsets with a late trigger made
- * whole blocks shoot upward faster than the page was being scrolled.
+ * Scroll-in reveals, following motion.dev's scroll-triggered pattern: `whileInView` with
+ * `viewport={{ once: true }}` (one pooled IntersectionObserver) animating opacity only, so content
+ * fades in where it already sits and never moves while the page is being scrolled.
  */
-export const REVEAL_Y = 10;
 export const REVEAL_EASE = [0.25, 0.1, 0.25, 1] as const;
 export const REVEAL_VIEWPORT = { once: true, amount: 0, margin: "0px 0px -10% 0px" } as const;
-const REVEAL_DURATION = 0.8;
+const REVEAL_DURATION = 0.6;
 
 type RevealProps = {
     children: ReactNode;
@@ -22,21 +21,21 @@ type RevealProps = {
     className?: string;
     /** Delay in seconds. */
     delay?: number;
-    /** Vertical offset in px the element rises from (capped at REVEAL_Y). */
+    /** @deprecated Reveals are opacity-only; kept so existing call sites still type-check. */
     y?: number;
     as?: "div" | "section" | "li" | "span" | "header" | "article";
 };
 
-/** Fades + rises an element in once when it scrolls into view. */
-export function Reveal({ children, style, className, delay = 0, y = REVEAL_Y, as = "div" }: RevealProps) {
+/** Fades an element in once when it scrolls into view. */
+export function Reveal({ children, style, className, delay = 0, as = "div" }: RevealProps) {
     const reduce = useReducedMotion();
     const M = motion[as];
     return (
         <M
             className={className}
             style={style}
-            initial={reduce ? false : { opacity: 0, y: Math.min(y, REVEAL_Y) }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={reduce ? false : { opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={REVEAL_VIEWPORT}
             transition={{ duration: REVEAL_DURATION, ease: REVEAL_EASE, delay }}
         >
@@ -51,8 +50,8 @@ const groupVariants: Variants = {
 };
 
 export const itemVariants: Variants = {
-    hidden: { opacity: 0, y: REVEAL_Y },
-    show: { opacity: 1, y: 0, transition: { duration: REVEAL_DURATION, ease: REVEAL_EASE } },
+    hidden: { opacity: 0 },
+    show: { opacity: 1, transition: { duration: REVEAL_DURATION, ease: REVEAL_EASE } },
 };
 
 /** Container that staggers its <StaggerItem> children in when scrolled into view. */

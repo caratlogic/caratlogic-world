@@ -208,7 +208,7 @@ export function KycDocumentsMobile() {
                 <motion.section
                     className="cl-m"
                     style={{ marginTop: 40, padding: "24px 20px", borderRadius: 20, background: "#111827" }}
-                    initial={reduce ? false : { opacity: 0, y: 10, scale: 0.98 }}
+                    initial={reduce ? false : { opacity: 0, y: 0, scale: 0.98 }}
                     whileInView={{ opacity: 1, y: 0, scale: 1 }}
                     viewport={REVEAL_VIEWPORT}
                     transition={{ duration: 0.6, ease: EASE }}

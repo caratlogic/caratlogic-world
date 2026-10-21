@@ -128,11 +128,15 @@ export function Section2() {
     // Observe the wrapper, not the clipped SVG: a fully clipped element never registers as in view.
     const graphicInView = useInView(graphicRef, { once: true, amount: 0.3 });
 
-    // Data pulses travel along the tube at constant speed (same as SVG animateMotion's paced mode).
+    const graphicOnScreen = useInView(graphicRef);
+    const ribLen = useRef(0);
+
+    // Data pulses travel along the tube at constant speed (same as SVG animateMotion's paced mode);
+    // skipped while the graphic is off screen.
     useAnimationFrame((t) => {
         const path = ribRef.current;
-        if (reduce || !path) return;
-        const len = path.getTotalLength();
+        if (reduce || !path || !graphicOnScreen) return;
+        const len = ribLen.current || (ribLen.current = path.getTotalLength());
         PULSE_OFFSETS.forEach((off, i) => {
             const c = pulseRefs.current[i];
             if (!c) return;
@@ -158,50 +162,54 @@ export function Section2() {
 
             {/* connected graphic */}
             <div ref={graphicRef} style={{ position: "relative", maxWidth: 1200, margin: "88px auto 0" }}>
-                <motion.svg
+                {/* Ribbon wipe-in on the wrapper; the blurred tube (static) and the moving pulses live in
+                    separate SVG layers so the pulses don't force the blur filter to repaint every frame. */}
+                <motion.div
                     className="cl-ribbon"
                     aria-hidden="true"
-                    viewBox="0 0 1200 250"
-                    preserveAspectRatio="none"
-                    style={{ position: "absolute", left: 0, top: 0, width: "100%", height: 250, overflow: "visible", pointerEvents: "none" }}
+                    style={{ position: "absolute", left: 0, top: 0, width: "100%", height: 250, pointerEvents: "none" }}
                     initial={reduce ? false : { clipPath: hidden, opacity: 0 }}
                     animate={reduce || graphicInView ? { clipPath: shown, opacity: 1 } : { clipPath: hidden, opacity: 0 }}
                     transition={{ duration: 1.6, ease: EASE, delay: 0.2 }}
                 >
-                    <defs>
-                        <linearGradient id="lps2Tube" x1="0" y1="0" x2="1200" y2="0" gradientUnits="userSpaceOnUse">
-                            <stop offset="0" stopColor="#dcefe0" />
-                            <stop offset="0.35" stopColor="#a7d7b2" />
-                            <stop offset="0.7" stopColor="#5fae7a" />
-                            <stop offset="1" stopColor="#2c6f4b" />
-                        </linearGradient>
-                        <filter id="lps2Soft" x="-10%" y="-50%" width="120%" height="200%">
-                            <feGaussianBlur stdDeviation="8" />
-                        </filter>
-                    </defs>
-                    {/* incoming strands: information arriving from different places */}
-                    <path d="M -40 60 C 60 60, 110 150, 200 160" fill="none" stroke="#cfe6d5" strokeWidth="7" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
-                    <path d="M -40 240 C 60 240, 120 180, 200 165" fill="none" stroke="#cfe6d5" strokeWidth="7" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
-                    <path d="M -40 160 C 40 160, 120 165, 200 162" fill="none" stroke="#bfe0c9" strokeWidth="9" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
-                    {/* main tube */}
-                    <path d={RIBBON_PATH} fill="none" stroke="rgba(44,111,75,0.22)" strokeWidth="30" strokeLinecap="round" filter="url(#lps2Soft)" transform="translate(0 12)" vectorEffect="non-scaling-stroke" />
-                    <path ref={ribRef} d={RIBBON_PATH} fill="none" stroke="url(#lps2Tube)" strokeWidth="28" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
-                    <path d={RIBBON_PATH} fill="none" stroke="rgba(255,255,255,0.45)" strokeWidth="7" strokeLinecap="round" transform="translate(0 -6)" vectorEffect="non-scaling-stroke" />
-                    {/* data pulses travelling along the tube */}
-                    {PULSE_OFFSETS.map((off, i) => (
-                        <circle
-                            key={off}
-                            ref={(el) => {
-                                pulseRefs.current[i] = el;
-                            }}
-                            className="cl-pulse"
-                            r="5"
-                            cx="200"
-                            cy="162"
-                            fill="#ffffff"
-                        />
-                    ))}
-                </motion.svg>
+                    <svg viewBox="0 0 1200 250" preserveAspectRatio="none" style={{ position: "absolute", inset: 0, width: "100%", height: 250, overflow: "visible" }}>
+                        <defs>
+                            <linearGradient id="lps2Tube" x1="0" y1="0" x2="1200" y2="0" gradientUnits="userSpaceOnUse">
+                                <stop offset="0" stopColor="#dcefe0" />
+                                <stop offset="0.35" stopColor="#a7d7b2" />
+                                <stop offset="0.7" stopColor="#5fae7a" />
+                                <stop offset="1" stopColor="#2c6f4b" />
+                            </linearGradient>
+                            <filter id="lps2Soft" x="-10%" y="-50%" width="120%" height="200%">
+                                <feGaussianBlur stdDeviation="8" />
+                            </filter>
+                        </defs>
+                        {/* incoming strands: information arriving from different places */}
+                        <path d="M -40 60 C 60 60, 110 150, 200 160" fill="none" stroke="#cfe6d5" strokeWidth="7" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+                        <path d="M -40 240 C 60 240, 120 180, 200 165" fill="none" stroke="#cfe6d5" strokeWidth="7" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+                        <path d="M -40 160 C 40 160, 120 165, 200 162" fill="none" stroke="#bfe0c9" strokeWidth="9" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+                        {/* main tube */}
+                        <path d={RIBBON_PATH} fill="none" stroke="rgba(44,111,75,0.22)" strokeWidth="30" strokeLinecap="round" filter="url(#lps2Soft)" transform="translate(0 12)" vectorEffect="non-scaling-stroke" />
+                        <path ref={ribRef} d={RIBBON_PATH} fill="none" stroke="url(#lps2Tube)" strokeWidth="28" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+                        <path d={RIBBON_PATH} fill="none" stroke="rgba(255,255,255,0.45)" strokeWidth="7" strokeLinecap="round" transform="translate(0 -6)" vectorEffect="non-scaling-stroke" />
+                    </svg>
+                    <svg viewBox="0 0 1200 250" preserveAspectRatio="none" style={{ position: "absolute", inset: 0, width: "100%", height: 250, overflow: "visible", willChange: "transform" }}>
+                        {/* data pulses travelling along the tube */}
+                        {PULSE_OFFSETS.map((off, i) => (
+                            <circle
+                                key={off}
+                                ref={(el) => {
+                                    pulseRefs.current[i] = el;
+                                }}
+                                className="cl-pulse"
+                                r="5"
+                                cx="200"
+                                cy="162"
+                                fill="#ffffff"
+                            />
+                        ))}
+                    </svg>
+                </motion.div>
 
                 <Stagger className="cl-steps" style={{ position: "relative" }} stagger={0.1}>
                     {/* 1 Inventory */}

@@ -154,7 +154,7 @@ function SectionReveal({ id, style, children }: { id?: string; style: CSSPropert
             id={id}
             className="cl-sec"
             style={style}
-            initial={reduce ? false : { opacity: 0, y: 10 }}
+            initial={reduce ? false : { opacity: 0, y: 0 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={REVEAL_VIEWPORT}
             transition={{ duration: 0.7, ease: EASE }}
