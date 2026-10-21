@@ -1,0 +1,46 @@
+/* Pricing (from Carat Logic design canvas — Pricing.dc.html) */
+.lp-pricing {
+    font-family: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif;
+}
+.lp-pricing a {
+    color: #245c3e;
+    text-decoration: none;
+}
+.lp-pricing a:hover {
+    color: #163d29;
+}
+.lp-pricing .cl-plans {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    align-items: stretch;
+}
+.lp-pricing .cl-bottom {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 20px;
+}
+.lp-pricing .cl-btn {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.lp-pricing .cl-btn:hover {
+    transform: translateY(-2px);
+}
+@media (max-width: 1040px) {
+    .lp-pricing .cl-plans {
+        grid-template-columns: minmax(0, 1fr);
+        max-width: 520px;
+        margin: 0 auto;
+    }
+    .lp-pricing .cl-bottom {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .lp-pricing .cl-btn {
+        transition: none;
+    }
+    .lp-pricing .cl-btn:hover {
+        transform: none;
+    }
+}

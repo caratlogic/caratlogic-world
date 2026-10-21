@@ -1,0 +1,55 @@
+/* Carat Logic Inventory product page — mobile (from InventoryPageMobile.dc.html) */
+.pg-inv-m {
+    font-family: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif;
+    color: #111114;
+    background: #ffffff;
+    position: relative;
+    overflow-x: clip;
+    box-sizing: border-box;
+}
+.pg-inv-m a {
+    color: #111114;
+    text-decoration: none;
+}
+.pg-inv-m .cl-tl {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #245c3e;
+    border-bottom: 1px solid rgba(36, 92, 62, 0.4);
+    padding-bottom: 3px;
+}
+.pg-inv-m .cl-q:focus-visible,
+.pg-inv-m .cl-acc:focus-visible,
+.pg-inv-m .cl-cta:focus-visible {
+    outline: 3px solid #317a51;
+    outline-offset: 2px;
+}
+/* Action bar: sits over the bottom of the hero on first load, then stays pinned to the bottom of the screen. */
+.pg-inv-m .cl-actionbar {
+    top: calc(100vh - 86px);
+    top: calc(100svh - 86px);
+}
+@keyframes pgInvMBob {
+    0%,
+    100% {
+        translate: 0 0;
+    }
+    50% {
+        translate: 0 -6px;
+    }
+}
+.pg-inv-m .cl-bob {
+    animation: pgInvMBob 6s ease-in-out infinite;
+}
+.pg-inv-m .cl-bob2 {
+    animation: pgInvMBob 7s ease-in-out -2s infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+    .pg-inv-m .cl-bob,
+    .pg-inv-m .cl-bob2 {
+        animation: none;
+    }
+}

@@ -1,0 +1,183 @@
+/* Contact page (from Carat Logic design canvas — ContactUsPage.dc.html / ContactUsQueryPage.dc.html) */
+.pg-contact {
+    font-family: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif;
+    color: #111114;
+    background: #ffffff;
+}
+.pg-contact a {
+    color: #111114;
+    text-decoration: none;
+}
+
+/* section + layout */
+.pg-contact .pgc-section {
+    padding: 88px 24px 112px;
+    background: linear-gradient(180deg, #ffffff 0%, #ffffff 60%, #f6f7f7 100%);
+}
+.pg-contact .cl-contact {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: 64px;
+    align-items: start;
+}
+.pg-contact .cl-fg {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+.pg-contact .cl-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.pg-contact .cl-field label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1d2320;
+}
+
+/* inputs */
+.pg-contact .cl-in {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 50px;
+    padding: 13px 16px;
+    border-radius: 12px;
+    border: 1px solid #dfe5e1;
+    background: #ffffff;
+    font: inherit;
+    font-size: 15px;
+    color: #111114;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.pg-contact .cl-in::placeholder {
+    color: #8a908d;
+}
+.pg-contact .cl-in:focus {
+    outline: none;
+    border-color: #317a51;
+    box-shadow: 0 0 0 4px rgba(49, 122, 81, 0.14);
+}
+.pg-contact textarea.cl-in {
+    min-height: 120px;
+    resize: vertical;
+    line-height: 1.5;
+}
+.pg-contact .cl-tab:focus-visible,
+.pg-contact .cl-chip:focus-visible,
+.pg-contact .cl-btn:focus-visible,
+.pg-contact .pgc-link:focus-visible {
+    outline: 3px solid #317a51;
+    outline-offset: 2px;
+}
+
+/* responsive type / spacing (kept out of inline styles so media queries can override) */
+.pg-contact .pgc-h1 {
+    margin: 0;
+    font-size: 60px;
+    line-height: 1.04;
+    font-weight: 600;
+    letter-spacing: -0.045em;
+    color: #0c0c10;
+}
+.pg-contact .pgc-lead {
+    margin: 0;
+    font-size: 19px;
+    line-height: 1.6;
+    color: #5f6663;
+}
+.pg-contact .pgc-card-outer {
+    border-radius: 28px;
+    padding: 10px;
+    background: #f4f5f5;
+    border: 1px solid #e7e9e8;
+}
+.pg-contact .pgc-card {
+    border-radius: 22px;
+    background: #ffffff;
+    border: 1px solid #e3e6e5;
+    box-shadow: 0 30px 60px rgba(16, 24, 20, 0.1);
+    padding: 32px;
+}
+.pg-contact .pgc-form-title {
+    margin: 0;
+    font-size: 26px;
+    line-height: 1.2;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: #0c0c10;
+}
+.pg-contact .pgc-sent {
+    min-height: 520px;
+}
+.pg-contact .pgc-link {
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.pg-contact .pgc-link:hover {
+    border-color: #cfd6d2 !important;
+    box-shadow: 0 10px 24px rgba(16, 24, 20, 0.07) !important;
+}
+.pg-contact .pgc-link-value {
+    overflow-wrap: anywhere;
+}
+.pg-contact .cl-btn:disabled {
+    cursor: progress !important;
+    opacity: 0.75;
+}
+
+@media (max-width: 1040px) {
+    .pg-contact .pgc-section {
+        padding: 64px 24px 88px;
+    }
+    .pg-contact .cl-contact {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 48px;
+    }
+    .pg-contact .cl-fg {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .pg-contact .pgc-h1 {
+        font-size: 52px;
+    }
+}
+
+@media (max-width: 640px) {
+    .pg-contact .pgc-section {
+        padding: 40px 16px 64px;
+    }
+    .pg-contact .cl-contact {
+        gap: 36px;
+    }
+    .pg-contact .pgc-h1 {
+        font-size: 40px;
+    }
+    .pg-contact .pgc-lead {
+        font-size: 17px;
+    }
+    .pg-contact .pgc-card-outer {
+        border-radius: 22px;
+        padding: 6px;
+    }
+    .pg-contact .pgc-card {
+        border-radius: 18px;
+        padding: 22px 16px;
+    }
+    .pg-contact .pgc-form-title {
+        font-size: 22px;
+    }
+    /* 16px avoids iOS zoom-on-focus */
+    .pg-contact .cl-in {
+        font-size: 16px;
+    }
+    .pg-contact .pgc-sent {
+        min-height: 380px;
+    }
+    .pg-contact .pgc-actions {
+        flex-direction: column;
+        align-items: stretch !important;
+    }
+    .pg-contact .pgc-actions .cl-btn {
+        width: 100%;
+        justify-content: space-between;
+    }
+}

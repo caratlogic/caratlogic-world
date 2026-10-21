@@ -1,0 +1,30 @@
+/* Diamond Inventory feature page — mobile (from DiamondInventoryPageMobile.dc.html) */
+.pg-diamond-m {
+    font-family: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif;
+}
+.pg-diamond-m a {
+    color: #111114;
+    text-decoration: none;
+}
+.pg-diamond-m .cl-q:focus-visible,
+.pg-diamond-m .cl-cta:focus-visible {
+    outline: 3px solid #317a51;
+    outline-offset: 2px;
+}
+.pg-diamond-m .cl-m {
+    scroll-margin-top: 140px;
+}
+.pg-diamond-m .cl-m p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #3f4643;
+}
+.pg-diamond-m .cl-m h2 {
+    margin: 0;
+    font-size: 27px;
+    line-height: 1.18;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: #0c0c10;
+}

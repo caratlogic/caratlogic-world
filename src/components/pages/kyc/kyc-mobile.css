@@ -1,0 +1,55 @@
+/* Carat Logic KYC — Mobile (from KycPageMobile.dc.html) */
+.pg-kyc-m {
+    font-family: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif;
+    position: relative;
+    overflow-x: clip;
+    box-sizing: border-box;
+    color: #111114;
+    background: #ffffff;
+}
+.pg-kyc-m a {
+    color: #111114;
+    text-decoration: none;
+}
+.pg-kyc-m .cl-tl {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #245c3e;
+    border-bottom: 1px solid rgba(36, 92, 62, 0.4);
+    padding-bottom: 3px;
+}
+.pg-kyc-m .cl-q:focus-visible,
+.pg-kyc-m .cl-btn:focus-visible {
+    outline: 3px solid #317a51;
+    outline-offset: 2px;
+}
+@keyframes pgKycMBob {
+    0%,
+    100% {
+        translate: 0 0;
+    }
+    50% {
+        translate: 0 -6px;
+    }
+}
+.pg-kyc-m .cl-bob {
+    animation: pgKycMBob 6s ease-in-out infinite;
+}
+.pg-kyc-m .cl-bob2 {
+    animation: pgKycMBob 7s ease-in-out -2s infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+    .pg-kyc-m .cl-bob,
+    .pg-kyc-m .cl-bob2 {
+        animation: none;
+    }
+}
+/* Action bar: sits over the bottom of the hero on first load, then stays pinned to the bottom of the screen while scrolling. */
+.pg-kyc-m .cl-actionbar {
+    position: sticky;
+    top: calc(100vh - 86px);
+    top: calc(100dvh - 86px);
+}

@@ -1,0 +1,30 @@
+/* Feature doc pages — mobile (from FinancialOpsPageMobile / ManufacturingPageMobile / ContactsPageMobile .dc.html) */
+.pg-fdoc-m {
+    font-family: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif;
+}
+.pg-fdoc-m a {
+    color: #111114;
+    text-decoration: none;
+}
+.pg-fdoc-m [id] {
+    scroll-margin-top: 88px;
+}
+.pg-fdoc-m .cl-q:focus-visible,
+.pg-fdoc-m .cl-bar:focus-visible {
+    outline: 3px solid #317a51;
+    outline-offset: 2px;
+}
+.pg-fdoc-m .cl-m p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #3f4643;
+}
+.pg-fdoc-m .cl-m h2 {
+    margin: 0;
+    font-size: 27px;
+    line-height: 1.18;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: #0c0c10;
+}

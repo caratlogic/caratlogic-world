@@ -1,0 +1,31 @@
+/* KYC Document Collection — mobile (from Carat Logic design canvas — KycDocumentsPageMobile.dc.html) */
+.pg-kycdoc-m {
+    font-family: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif;
+}
+.pg-kycdoc-m a {
+    color: #111114;
+    text-decoration: none;
+}
+.pg-kycdoc-m .cl-q:focus-visible,
+.pg-kycdoc-m .cl-bar:focus-visible {
+    outline: 3px solid #317a51;
+    outline-offset: 2px;
+}
+.pg-kycdoc-m .cl-m p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #3f4643;
+}
+.pg-kycdoc-m .cl-m h2 {
+    margin: 0;
+    font-size: 27px;
+    line-height: 1.18;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: #0c0c10;
+}
+/* keep anchored sections clear of the fixed site header */
+.pg-kycdoc-m .cl-m[id] {
+    scroll-margin-top: 88px;
+}

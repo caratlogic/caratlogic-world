@@ -1,0 +1,57 @@
+/* Integrations hub (from Carat Logic design canvas: Integrations3.dc.html — two-way hub) */
+.lp-integrations {
+    font-family: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif;
+}
+.lp-integrations a {
+    color: #111114;
+    text-decoration: none;
+}
+.lp-integrations .cl-stage {
+    display: block;
+}
+.lp-integrations .cl-chips {
+    display: none;
+}
+.lp-integrations .cl-node {
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+.lp-integrations .cl-node:hover {
+    transform: translate(-50%, -50%) scale(1.06) !important;
+    box-shadow: 0 16px 32px rgba(16, 24, 20, 0.14) !important;
+}
+@keyframes lpintPulse {
+    0%,
+    100% {
+        box-shadow:
+            0 0 0 14px rgba(49, 122, 81, 0.08),
+            0 0 0 34px rgba(49, 122, 81, 0.04),
+            0 24px 48px rgba(36, 92, 62, 0.18);
+    }
+    50% {
+        box-shadow:
+            0 0 0 20px rgba(49, 122, 81, 0.1),
+            0 0 0 44px rgba(49, 122, 81, 0.05),
+            0 24px 48px rgba(36, 92, 62, 0.18);
+    }
+}
+.lp-integrations .cl-hub {
+    animation: lpintPulse 3.6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+    .lp-integrations .cl-hub {
+        animation: none;
+    }
+    .lp-integrations .cl-node {
+        transition: none;
+    }
+}
+@media (max-width: 760px) {
+    .lp-integrations .cl-stage {
+        display: none;
+    }
+    .lp-integrations .cl-chips {
+        display: flex;
+    }
+}

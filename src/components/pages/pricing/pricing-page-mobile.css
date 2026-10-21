@@ -1,0 +1,60 @@
+/* Pricing page — mobile artboard (PricingPageMobile.dc.html) */
+.pg-pricing-m {
+    font-family: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif;
+}
+.pg-pricing-m a {
+    color: #111114;
+    text-decoration: none;
+}
+.pg-pricing-m .cl-q:focus-visible,
+.pg-pricing-m .cl-btn:focus-visible {
+    outline: 3px solid #317a51;
+    outline-offset: 2px;
+}
+.pg-pricing-m .cl-m p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #3f4643;
+}
+.pg-pricing-m .cl-m h2 {
+    margin: 0;
+    font-size: 27px;
+    line-height: 1.18;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: #0c0c10;
+}
+@keyframes pgPricingMMarquee {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+.pg-pricing-m .cl-track {
+    animation: pgPricingMMarquee 30s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+    .pg-pricing-m .cl-track {
+        animation: none;
+    }
+}
+.pg-pricing-m .cl-cg {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.pg-pricing-m .cl-cg > * {
+    padding: 12px 8px;
+    text-align: center;
+    font-size: 13px;
+    line-height: 1.4;
+    color: #3a403d;
+}
+.pg-pricing-m .cl-cg > * + * {
+    border-left: 1px solid #eceeed;
+}
+.pg-pricing-m .cl-cg > .hl {
+    background: #f6f7f7;
+}

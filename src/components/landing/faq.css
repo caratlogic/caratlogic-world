@@ -1,0 +1,32 @@
+/* FAQ (from Carat Logic design canvas — FAQ.dc.html) */
+.lp-faq {
+    font-family: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif;
+}
+.lp-faq a {
+    color: #245c3e;
+    text-decoration: none;
+}
+.lp-faq a:hover {
+    color: #163d29;
+}
+.lp-faq .cl-faq {
+    display: grid;
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+    gap: 56px;
+}
+.lp-faq .cl-q:hover {
+    border-color: #cfd6d2;
+}
+.lp-faq .cl-q:focus-visible {
+    outline: 3px solid #317a51;
+    outline-offset: 2px;
+}
+@media (max-width: 1000px) {
+    .lp-faq .cl-faq {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 40px;
+    }
+    .lp-faq .cl-phonewrap {
+        order: 3;
+    }
+}

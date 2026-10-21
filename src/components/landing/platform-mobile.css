@@ -1,0 +1,55 @@
+/* Platform features — mobile (from PlatformMobile.dc.html) */
+.lp-platform-m {
+    font-family: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif;
+    color: #111114;
+    background: #ffffff;
+    box-sizing: border-box;
+}
+.lp-platform-m a {
+    color: #245c3e;
+    text-decoration: none;
+}
+.lp-platform-m a:hover {
+    color: #163d29;
+}
+.lp-platform-m .cl-feat {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.lp-platform-m .cl-top {
+    grid-column: span 2;
+}
+.lp-platform-m .cl-wide {
+    grid-column: span 3;
+}
+.lp-platform-m .cl-fc {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.lp-platform-m .cl-fc:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 24px 48px rgba(16, 24, 20, 0.1);
+}
+@media (max-width: 1000px) {
+    .lp-platform-m .cl-top,
+    .lp-platform-m .cl-wide {
+        grid-column: span 3;
+    }
+}
+@media (max-width: 680px) {
+    .lp-platform-m .cl-feat {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .lp-platform-m .cl-top,
+    .lp-platform-m .cl-wide {
+        grid-column: span 1;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .lp-platform-m .cl-fc {
+        transition: none;
+    }
+    .lp-platform-m .cl-fc:hover {
+        transform: none;
+    }
+}

@@ -1,0 +1,107 @@
+/* Carat Logic KYC — Desktop (from KycPage.dc.html) */
+.pg-kyc {
+    font-family: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif;
+    color: #111114;
+    background: #ffffff;
+}
+.pg-kyc a {
+    color: #111114;
+    text-decoration: none;
+}
+.pg-kyc .cl-prod {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 64px;
+    align-items: center;
+}
+.pg-kyc .cl-prod.rev {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+}
+.pg-kyc .cl-prod.rev > .cl-vis {
+    order: -1;
+}
+.pg-kyc .cl-faq {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 64px;
+}
+.pg-kyc .cl-feat {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 14px;
+}
+.pg-kyc .cl-top {
+    grid-column: span 2;
+}
+.pg-kyc .cl-wide {
+    grid-column: span 3;
+}
+.pg-kyc .cl-card {
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+.pg-kyc .cl-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 24px 48px rgba(16, 24, 20, 0.1);
+}
+.pg-kyc .cl-tl {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #245c3e;
+    border-bottom: 1px solid rgba(36, 92, 62, 0.4);
+    padding-bottom: 3px;
+}
+.pg-kyc .cl-tl:hover {
+    color: #163d29;
+}
+.pg-kyc .cl-q:focus-visible,
+.pg-kyc .cl-btn:focus-visible {
+    outline: 3px solid #317a51;
+    outline-offset: 2px;
+}
+@keyframes pgKycBob {
+    0%,
+    100% {
+        translate: 0 0;
+    }
+    50% {
+        translate: 0 -8px;
+    }
+}
+.pg-kyc .cl-bob {
+    animation: pgKycBob 6s ease-in-out infinite;
+}
+.pg-kyc .cl-bob2 {
+    animation: pgKycBob 7s ease-in-out -2s infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+    .pg-kyc .cl-bob,
+    .pg-kyc .cl-bob2 {
+        animation: none;
+    }
+    .pg-kyc .cl-card {
+        transition: none;
+    }
+    .pg-kyc .cl-card:hover {
+        transform: none;
+    }
+}
+@media (max-width: 1040px) {
+    .pg-kyc .cl-faq {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 40px;
+    }
+    /* Not in the 1440 artboard: stack the product blocks on narrow desktops (as the landing Products section does). */
+    .pg-kyc .cl-prod,
+    .pg-kyc .cl-prod.rev {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 40px;
+    }
+    .pg-kyc .cl-prod.rev > .cl-vis {
+        order: 0;
+    }
+}

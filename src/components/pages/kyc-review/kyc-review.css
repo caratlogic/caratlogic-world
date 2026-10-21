@@ -1,0 +1,70 @@
+/* KYC Review & Status Tracking — desktop (from Carat Logic design canvas — KycReviewPage.dc.html) */
+.pg-kycrev {
+    font-family: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif;
+}
+.pg-kycrev a {
+    color: #111114;
+    text-decoration: none;
+}
+.pg-kycrev .cl-q:focus-visible,
+.pg-kycrev .cl-btn:focus-visible {
+    outline: 3px solid #317a51;
+    outline-offset: 2px;
+}
+.pg-kycrev .cl-dbody {
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr);
+    gap: 64px;
+    align-items: start;
+}
+.pg-kycrev .cl-toc a {
+    position: relative;
+    display: block;
+    padding: 11px 16px;
+    border-radius: 12px;
+    font-size: 15px;
+    line-height: 1.4;
+    color: #4f5753;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+.pg-kycrev .cl-toc a:hover {
+    background: #f6f7f7;
+    color: #0c0c10;
+}
+.pg-kycrev .cl-toc a.on {
+    color: #0c0c10;
+    font-weight: 500;
+}
+/* active-item background (#f1f3f2 in the design) — a motion layoutId pill that slides between items */
+.pg-kycrev .cl-tocpill {
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    background: #f1f3f2;
+}
+.pg-kycrev .cl-sec p {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.75;
+    color: #3f4643;
+}
+.pg-kycrev .cl-sec h2 {
+    margin: 0;
+    font-size: 34px;
+    line-height: 1.15;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: #0c0c10;
+}
+/* keep anchored sections clear of the fixed site header */
+.pg-kycrev .cl-sec[id] {
+    scroll-margin-top: 120px;
+}
+@media (max-width: 1040px) {
+    .pg-kycrev .cl-dbody {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .pg-kycrev .cl-tocwrap {
+        display: none;
+    }
+}

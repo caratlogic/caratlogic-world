@@ -1,0 +1,36 @@
+/* Products — mobile (from ProductsMobile.dc.html) */
+.lp-products-m {
+    font-family: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif;
+    background: #ffffff;
+    color: #111114;
+    box-sizing: border-box;
+}
+.lp-products-m a {
+    color: #245c3e;
+    text-decoration: none;
+}
+.lp-products-m a:hover {
+    color: #163d29;
+}
+.lp-products-m .cl-prod {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 32px;
+    align-items: start;
+}
+.lp-products-m .cl-prod-rev {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+}
+.lp-products-m .cl-call {
+    display: flex;
+}
+@media (max-width: 1040px) {
+    .lp-products-m .cl-prod,
+    .lp-products-m .cl-prod-rev {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 40px;
+    }
+    .lp-products-m .cl-call {
+        display: none;
+    }
+}

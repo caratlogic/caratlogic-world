@@ -1,0 +1,11 @@
+/* Desktop artboards (1440) show from 768px up; mobile artboards (390) below. */
+@media (max-width: 767px) {
+    .lp-desktop-only {
+        display: none !important;
+    }
+}
+@media (min-width: 768px) {
+    .lp-mobile-only {
+        display: none !important;
+    }
+}

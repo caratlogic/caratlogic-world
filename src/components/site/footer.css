@@ -1,0 +1,35 @@
+/* Footer (from Carat Logic design canvas — Footer.dc.html) */
+.site-footer {
+    font-family: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif;
+}
+.site-footer a {
+    color: #e6e8e7;
+    text-decoration: none;
+}
+.site-footer a:hover {
+    color: #8fe0a5;
+}
+.site-footer .cl-foot {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: 48px;
+    row-gap: 56px;
+}
+.site-footer .cl-legal {
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+}
+@media (max-width: 900px) {
+    .site-footer .cl-foot {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .site-footer .cl-brand {
+        grid-column: 1 / -1;
+    }
+}
+@media (max-width: 560px) {
+    .site-footer .cl-foot {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}

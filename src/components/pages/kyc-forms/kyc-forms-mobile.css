@@ -1,0 +1,33 @@
+/* KYC Custom Forms — mobile (from KycFormsPageMobile.dc.html) */
+.pg-kycforms-m {
+    font-family: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif;
+    color: #111114;
+    background: #ffffff;
+}
+.pg-kycforms-m a {
+    color: #111114;
+    text-decoration: none;
+}
+.pg-kycforms-m .cl-q:focus-visible,
+.pg-kycforms-m .cl-btn:focus-visible {
+    outline: 3px solid #317a51;
+    outline-offset: 2px;
+}
+.pg-kycforms-m .cl-m {
+    /* keep anchored sections clear of the fixed site header */
+    scroll-margin-top: 80px;
+}
+.pg-kycforms-m .cl-m p {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #3f4643;
+}
+.pg-kycforms-m .cl-m h2 {
+    margin: 0;
+    font-size: 27px;
+    line-height: 1.18;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: #0c0c10;
+}

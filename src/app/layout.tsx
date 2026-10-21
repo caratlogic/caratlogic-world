@@ -7,7 +7,8 @@ import {
 } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
-import Header from "@/components/layouts/Header";
+import { Header, HeaderSpacer } from "@/components/site/Header";
+import { SiteFooter } from "@/components/site/SiteFooter";
 
 // Removed figtree
 
@@ -47,7 +48,9 @@ export default function RootLayout({
                 className={`${geistSans.variable} ${geistMono.variable} ${plusJakartaSans.variable} antialiased`}
             >
                 <Header />
+                <HeaderSpacer />
                 {children}
+                <SiteFooter />
             </body>
         </html>
     );

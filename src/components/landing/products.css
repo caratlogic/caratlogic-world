@@ -1,0 +1,36 @@
+/* Products (from Products.dc.html) */
+.lp-products {
+    font-family: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif;
+    background: #ffffff;
+    color: #111114;
+    box-sizing: border-box;
+}
+.lp-products a {
+    color: #245c3e;
+    text-decoration: none;
+}
+.lp-products a:hover {
+    color: #163d29;
+}
+.lp-products .cl-prod {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 64px;
+    align-items: center;
+}
+.lp-products .cl-prod-rev {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+}
+.lp-products .cl-call {
+    display: flex;
+}
+@media (max-width: 1040px) {
+    .lp-products .cl-prod,
+    .lp-products .cl-prod-rev {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 40px;
+    }
+    .lp-products .cl-call {
+        display: none;
+    }
+}

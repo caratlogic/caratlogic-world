@@ -1,0 +1,48 @@
+/* Product Guides listing — desktop artboard (ProductGuidesPage.dc.html) */
+.pg-guides {
+    font-family: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif;
+}
+.pg-guides a {
+    color: #111114;
+    text-decoration: none;
+}
+.pg-guides .cl-blog {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 48px 32px;
+}
+.pg-guides .cl-post .cl-pt {
+    transition: color 0.15s ease;
+}
+.pg-guides .cl-post:hover .cl-pt {
+    color: #245c3e;
+}
+.pg-guides .cl-post img {
+    transition: transform 0.4s ease;
+}
+.pg-guides .cl-post:hover img {
+    transform: scale(1.04);
+}
+.pg-guides .cl-post:focus-visible {
+    outline: 3px solid #317a51;
+    outline-offset: 6px;
+    border-radius: 20px;
+}
+@media (max-width: 1040px) {
+    .pg-guides .cl-blog {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+@media (max-width: 640px) {
+    .pg-guides .cl-blog {
+        grid-template-columns: minmax(0, 1fr);
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .pg-guides .cl-post img {
+        transition: none;
+    }
+    .pg-guides .cl-post:hover img {
+        transform: none;
+    }
+}

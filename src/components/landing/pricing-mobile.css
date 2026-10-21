@@ -1,0 +1,36 @@
+/* Pricing mobile (from Carat Logic design canvas — PricingMobile.dc.html) */
+.lp-pricing-m {
+    font-family: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif;
+}
+.lp-pricing-m a {
+    color: #245c3e;
+    text-decoration: none;
+}
+.lp-pricing-m a:hover {
+    color: #163d29;
+}
+.lp-pricing-m .cl-plans {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 16px;
+}
+.lp-pricing-m .cl-bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.lp-pricing-m .cl-btn {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.lp-pricing-m .cl-btn:hover {
+    transform: translateY(-2px);
+}
+@media (prefers-reduced-motion: reduce) {
+    .lp-pricing-m .cl-btn {
+        transition: none;
+    }
+    .lp-pricing-m .cl-btn:hover {
+        transform: none;
+    }
+}

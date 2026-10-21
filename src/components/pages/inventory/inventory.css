@@ -1,0 +1,111 @@
+/* Carat Logic Inventory product page — desktop (from InventoryPage.dc.html) */
+.pg-inv {
+    font-family: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif;
+    color: #111114;
+    background: #ffffff;
+    overflow-x: clip;
+}
+.pg-inv a {
+    color: #111114;
+    text-decoration: none;
+}
+.pg-inv .cl-prod {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 64px;
+    align-items: center;
+}
+.pg-inv .cl-prod.rev {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+}
+.pg-inv .cl-prod.rev > .cl-vis {
+    order: -1;
+}
+.pg-inv .cl-faq {
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: 64px;
+}
+.pg-inv .cl-feat {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 14px;
+}
+.pg-inv .cl-top {
+    grid-column: span 2;
+}
+.pg-inv .cl-wide {
+    grid-column: span 3;
+}
+.pg-inv .cl-card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.pg-inv .cl-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 24px 48px rgba(16, 24, 20, 0.1);
+}
+.pg-inv .cl-tl {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #245c3e;
+    border-bottom: 1px solid rgba(36, 92, 62, 0.4);
+    padding-bottom: 3px;
+}
+.pg-inv .cl-tl:hover {
+    color: #163d29;
+}
+.pg-inv .cl-q:focus-visible,
+.pg-inv .cl-btn:focus-visible {
+    outline: 3px solid #317a51;
+    outline-offset: 2px;
+}
+@keyframes pgInvBob {
+    0%,
+    100% {
+        translate: 0 0;
+    }
+    50% {
+        translate: 0 -8px;
+    }
+}
+.pg-inv .cl-bob {
+    animation: pgInvBob 6s ease-in-out infinite;
+}
+.pg-inv .cl-bob2 {
+    animation: pgInvBob 7s ease-in-out -2s infinite;
+}
+@keyframes pgInvDash {
+    to {
+        background-position: 22px 0;
+    }
+}
+.pg-inv .cl-wire {
+    animation: pgInvDash 1.4s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+    .pg-inv .cl-bob,
+    .pg-inv .cl-bob2,
+    .pg-inv .cl-wire {
+        animation: none;
+    }
+    .pg-inv .cl-card {
+        transition: none;
+    }
+    .pg-inv .cl-card:hover {
+        transform: none;
+    }
+}
+@media (max-width: 1040px) {
+    .pg-inv .cl-prod,
+    .pg-inv .cl-prod.rev,
+    .pg-inv .cl-faq {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 40px;
+    }
+    .pg-inv .cl-prod.rev > .cl-vis {
+        order: 0;
+    }
+}

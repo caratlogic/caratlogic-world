@@ -1,0 +1,55 @@
+/* Platform features (from Platform.dc.html) */
+.lp-platform {
+    font-family: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif;
+    color: #111114;
+    background: #ffffff;
+    box-sizing: border-box;
+}
+.lp-platform a {
+    color: #245c3e;
+    text-decoration: none;
+}
+.lp-platform a:hover {
+    color: #163d29;
+}
+.lp-platform .cl-feat {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 14px;
+}
+.lp-platform .cl-top {
+    grid-column: span 2;
+}
+.lp-platform .cl-wide {
+    grid-column: span 3;
+}
+.lp-platform .cl-fc {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.lp-platform .cl-fc:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 24px 48px rgba(16, 24, 20, 0.1);
+}
+@media (max-width: 1000px) {
+    .lp-platform .cl-top,
+    .lp-platform .cl-wide {
+        grid-column: span 3;
+    }
+}
+@media (max-width: 680px) {
+    .lp-platform .cl-feat {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .lp-platform .cl-top,
+    .lp-platform .cl-wide {
+        grid-column: span 1;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .lp-platform .cl-fc {
+        transition: none;
+    }
+    .lp-platform .cl-fc:hover {
+        transform: none;
+    }
+}

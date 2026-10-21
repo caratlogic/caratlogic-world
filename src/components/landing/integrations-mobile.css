@@ -1,0 +1,39 @@
+/* Integrations hub — mobile (from Carat Logic design canvas: Integrations3Mobile.dc.html — two-way hub) */
+.lp-integrations-m {
+    font-family: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif;
+}
+.lp-integrations-m a {
+    color: #111114;
+    text-decoration: none;
+}
+.lp-integrations-m .cl-node {
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+@keyframes lpintmPulse {
+    0%,
+    100% {
+        box-shadow:
+            0 0 0 10px rgba(49, 122, 81, 0.08),
+            0 0 0 24px rgba(49, 122, 81, 0.04),
+            0 18px 36px rgba(36, 92, 62, 0.18);
+    }
+    50% {
+        box-shadow:
+            0 0 0 14px rgba(49, 122, 81, 0.1),
+            0 0 0 32px rgba(49, 122, 81, 0.05),
+            0 18px 36px rgba(36, 92, 62, 0.18);
+    }
+}
+.lp-integrations-m .cl-hub {
+    animation: lpintmPulse 3.6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+    .lp-integrations-m .cl-hub {
+        animation: none;
+    }
+    .lp-integrations-m .cl-node {
+        transition: none;
+    }
+}

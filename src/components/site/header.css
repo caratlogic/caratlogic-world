@@ -1,0 +1,159 @@
+/* Site header — announcement bar + navigation with mega menus (Carat Logic design canvas) */
+.site-header {
+    font-family: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif;
+    color: #111114;
+}
+.site-header a {
+    color: #111114;
+    text-decoration: none;
+}
+.site-header .cl-lk {
+    color: #4f5753;
+    transition: color 0.15s ease;
+}
+.site-header .cl-lk:hover {
+    color: #245c3e;
+}
+.site-header .cl-lk:hover .cl-lt {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+.site-header .cl-card img,
+.site-header .cl-art img,
+.site-header .cl-vid img {
+    transition: transform 0.4s ease;
+}
+.site-header .cl-card:hover img,
+.site-header .cl-art:hover img,
+.site-header .cl-vid:hover img {
+    transform: scale(1.03);
+}
+.site-header .cl-art:hover .cl-at {
+    color: #245c3e;
+}
+.site-header .cl-res-row {
+    transition: background-color 0.15s ease;
+}
+.site-header .cl-res-row:hover {
+    background: #f6f7f7;
+}
+.site-header .cl-chip {
+    transition: border-color 0.15s ease, color 0.15s ease;
+}
+.site-header .cl-chip:hover {
+    border-color: #9cc9a8;
+    color: #245c3e;
+}
+.site-header .cl-mega {
+    display: grid;
+    grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+    gap: 48px;
+}
+.site-header .cl-cols {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 36px;
+}
+.site-header .cl-res {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr) minmax(0, 1.2fr);
+    gap: 44px;
+}
+.site-header .cl-links,
+.site-header .cl-cta {
+    display: flex;
+}
+.site-header .cl-burger {
+    display: none;
+}
+@media (max-width: 1100px) {
+    .site-header .cl-mega {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .site-header .cl-res {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+    .site-header .cl-feat {
+        grid-column: 1 / -1;
+    }
+}
+@media (max-width: 900px) {
+    .site-header .cl-links,
+    .site-header .cl-panel,
+    .site-header .cl-cta {
+        display: none;
+    }
+    .site-header .cl-burger {
+        display: flex;
+    }
+    .site-header .cl-cols {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+
+/* Bar sizing: desktop nav design, then the mobile hero header (14px 16px, 38px logo) */
+.site-header .cl-bar {
+    padding: 18px 24px;
+}
+.site-header .cl-logo {
+    height: 48px;
+}
+@media (max-width: 767px) {
+    .site-header .cl-bar {
+        padding: 14px 16px;
+    }
+    .site-header .cl-logo {
+        height: 38px;
+    }
+}
+
+/* Full-screen mobile menu (MenuMobile design) */
+.site-header .cl-mobile {
+    display: flex;
+}
+@media (min-width: 901px) {
+    .site-header .cl-mobile {
+        display: none;
+    }
+}
+.site-header .cl-acc:focus-visible,
+.site-header .cl-x:focus-visible {
+    outline: 3px solid #317a51;
+    outline-offset: 2px;
+}
+
+/* Features menu (NavFeatures design): two product groups split by a divider */
+.site-header .cl-feat2-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 56px;
+}
+.site-header .cl-feat2-second {
+    border-left: 1px solid #eceeed;
+    padding-left: 56px;
+}
+.site-header .cl-feat-link {
+    transition: color 0.15s ease, background-color 0.15s ease;
+}
+.site-header .cl-feat-link:hover {
+    background: #f6f7f7;
+}
+@media (max-width: 1100px) {
+    .site-header .cl-feat2-grid {
+        gap: 32px;
+    }
+    .site-header .cl-feat2-second {
+        padding-left: 32px;
+    }
+}
+
+/* Fixed header's in-flow placeholder: announcement (44px) + bar (84px + 1px border; 66px + 1px on phones) */
+.site-header-spacer {
+    height: 129px;
+}
+@media (max-width: 767px) {
+    .site-header-spacer {
+        height: 111px;
+    }
+}

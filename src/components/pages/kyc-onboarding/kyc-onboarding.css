@@ -1,0 +1,85 @@
+/* KYC Business Contact Onboarding — desktop (from KycOnboardingPage.dc.html) */
+.pg-kyconb {
+    font-family: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif;
+    color: #111114;
+    background: #ffffff;
+}
+.pg-kyconb a {
+    color: #111114;
+    text-decoration: none;
+}
+.pg-kyconb .cl-q:focus-visible,
+.pg-kyconb .cl-btn:focus-visible {
+    outline: 3px solid #317a51;
+    outline-offset: 2px;
+}
+.pg-kyconb .cl-dbody {
+    display: grid;
+    grid-template-columns: 300px minmax(0, 1fr);
+    gap: 64px;
+    align-items: start;
+}
+.pg-kyconb .cl-toc a {
+    position: relative;
+    display: block;
+    padding: 11px 16px;
+    border-radius: 12px;
+    font-size: 15px;
+    line-height: 1.4;
+    color: #4f5753;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+.pg-kyconb .cl-toc a:hover {
+    background: #f6f7f7;
+    color: #0c0c10;
+}
+/* The active background is drawn by a shared motion pill (.cl-tocpill) so it can glide between links. */
+.pg-kyconb .cl-toc a.on {
+    color: #0c0c10;
+    font-weight: 500;
+}
+.pg-kyconb .cl-toc a.on:hover {
+    background: transparent;
+}
+.pg-kyconb .cl-tocpill {
+    position: absolute;
+    inset: 0;
+    border-radius: 12px;
+    background: #f1f3f2;
+    z-index: 0;
+}
+.pg-kyconb .cl-toclabel {
+    position: relative;
+    z-index: 1;
+}
+.pg-kyconb .cl-sec {
+    /* keep anchored sections clear of the fixed site header */
+    scroll-margin-top: 120px;
+}
+.pg-kyconb .cl-sec p {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.75;
+    color: #3f4643;
+}
+.pg-kyconb .cl-sec h2 {
+    margin: 0;
+    font-size: 34px;
+    line-height: 1.15;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    color: #0c0c10;
+}
+@media (prefers-reduced-motion: reduce) {
+    .pg-kyconb .cl-toc a {
+        transition: none;
+    }
+}
+@media (max-width: 1040px) {
+    .pg-kyconb .cl-dbody {
+        grid-template-columns: minmax(0, 1fr);
+    }
+    .pg-kyconb .cl-tocwrap {
+        display: none;
+    }
+}
