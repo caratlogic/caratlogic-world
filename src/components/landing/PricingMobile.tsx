@@ -25,7 +25,7 @@ const PLANS: PlanInput[] = [
         price: "€150",
         users: 3,
         desc: "For a small team managing diamond or gemstone inventory.",
-        features: ["Gem or Diamond module", "Up to 3 active users", "All 9 core platform features", "Custom roles and permissions", "Unlimited stones and documents"],
+        features: ["1 inventory module of your choice", "Up to 3 active users", "1 free API key", "All 9 core platform features", "Custom roles and permissions", "Unlimited stones and documents"],
     },
     {
         name: "Premium Package",
@@ -33,7 +33,7 @@ const PLANS: PlanInput[] = [
         price: "€200",
         users: 7,
         desc: "For teams that need more users on one inventory module.",
-        features: ["Gem or Diamond module", "Up to 7 active users", "All 9 core platform features", "Custom roles and permissions", "Unlimited stones and documents"],
+        features: ["1 inventory module of your choice", "Up to 7 active users", "1 free API key", "All 9 core platform features", "Custom roles and permissions", "Unlimited stones and documents"],
     },
     {
         name: "Enterprise Package",
@@ -42,8 +42,8 @@ const PLANS: PlanInput[] = [
         users: 7,
         featured: true,
         tag: "Inventory + KYC",
-        desc: "For teams managing both diamonds and gemstones, with customer and supplier KYC included.",
-        features: ["Gem and Diamond modules", "Up to 7 active users", "All 17 platform features", "KYC application included", "Unlimited stones and documents"],
+        desc: "For teams that need every platform feature, with customer and supplier KYC included.",
+        features: ["1 inventory module of your choice", "Up to 7 active users", "1 free API key", "All 17 platform features", "KYC application included", "Unlimited stones and documents"],
     },
 ];
 
@@ -179,7 +179,7 @@ export function PricingMobile() {
                     <h2 style={{ margin: 0, fontSize: 34, lineHeight: 1.08, fontWeight: 600, letterSpacing: "-0.045em", color: "#0c0c10" }}>
                         Simple Pricing. <span style={{ color: "#6b6b75" }}>Choose What Your Business Needs.</span>
                     </h2>
-                    <p style={{ margin: 0, fontSize: 16, lineHeight: 1.55, color: "#5f6663" }}>Choose Gem or Diamond inventory for your team, or get both modules and KYC with Enterprise.</p>
+                    <p style={{ margin: 0, fontSize: 16, lineHeight: 1.55, color: "#5f6663" }}>Every package includes one inventory module and 1 free API key. Add more modules for €50 or API keys for €25 a month.</p>
                 </Reveal>
 
                 {/* package switcher */}
@@ -238,7 +238,7 @@ export function PricingMobile() {
                         </span>
                         <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
                             <h3 style={{ margin: 0, fontSize: 20, lineHeight: 1.25, fontWeight: 600, letterSpacing: "-0.02em", color: "#0c0c10" }}>Unlimited Stones and Documents Across Every Package.</h3>
-                            <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6, color: "#5f6663" }}>Choose your package based on the inventory modules, user capacity and onboarding tools your business needs.</p>
+                            <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6, color: "#5f6663" }}>Choose your package based on user capacity and onboarding tools, then add the inventory modules and API keys your business needs.</p>
                         </div>
                     </motion.div>
                     <motion.div variants={itemVariants} style={{ display: "flex", flexDirection: "column", gap: 18, justifyContent: "space-between", padding: "24px 22px", borderRadius: 22, background: "#111827", color: "#ffffff", boxSizing: "border-box" }}>

@@ -7,36 +7,47 @@ import "./pricing-page-mobile.css";
 
 /* ---------- data ---------- */
 
-type Plan = { name: string; desc: string; price: string; features: string[]; hl?: boolean };
+type Plan = { name: string; desc: string; price: string; base: string; features: string[]; hl?: boolean };
 
 const PLANS: Plan[] = [
     {
         name: "Standard Package",
         desc: "For a small team managing one inventory module.",
         price: "€150",
-        features: ["Choose the Gem or Diamond module", "Up to 3 active users", "All 9 core platform features", "Custom roles and permissions", "Unlimited stones and documents"],
+        base: "€100",
+        features: ["1 inventory module of your choice", "Up to 3 active users", "1 free API key", "All 9 core platform features", "Custom roles and permissions", "Unlimited stones and documents"],
     },
     {
         name: "Premium Package",
         desc: "For teams that need more users on one inventory module.",
         price: "€200",
-        features: ["Choose the Gem or Diamond module", "Up to 7 active users", "All 9 core platform features", "Custom roles and permissions", "Unlimited stones and documents"],
+        base: "€150",
+        features: ["1 inventory module of your choice", "Up to 7 active users", "1 free API key", "All 9 core platform features", "Custom roles and permissions", "Unlimited stones and documents"],
     },
     {
         name: "Enterprise Package",
-        desc: "For teams managing both diamonds and gemstones, with customer and supplier KYC included.",
+        desc: "For teams that need every platform feature, with customer and supplier KYC included.",
         price: "€250",
+        base: "€200",
         hl: true,
-        features: ["Gem and Diamond modules", "Up to 7 active users", "All 17 platform features", "KYC application included", "Custom roles and permissions", "Unlimited stones and documents"],
+        features: ["1 inventory module of your choice", "Up to 7 active users", "1 free API key", "All 17 platform features", "KYC application included", "Custom roles and permissions", "Unlimited stones and documents"],
     },
 ];
 
+const MODULES = ["Gem Inventory", "Natural Diamond Inventory", "Lab Grown Diamond Inventory"];
+
+const ADDONS = [
+    { name: "Extra inventory module", price: "+€50", desc: "Every package includes one inventory module. Add any of the other modules for €50 per module, per month.", tags: MODULES },
+    { name: "Extra API key", price: "+€25", desc: "Every package includes 1 free API key. Each additional API key is €25 per key, per month.", tags: [] },
+];
+
 const QA: [string, string][] = [
-    ["How do I access the ₹0 trial?", "Book a free demo first. After the walkthrough, the Carat Logic team can help arrange access to the trial."],
-    ["What is included in the Standard and Premium packages?", "Both packages include one inventory module—Gem or Diamond—all 9 core platform features, custom roles and permissions, and unlimited stones and documents. Standard supports up to 3 active users; Premium supports up to 7."],
-    ["Which package includes both Gem and Diamond inventory?", "The Enterprise Package includes both modules, up to 7 active users, all 17 platform features and the KYC application."],
+    ["How do I access the €0 trial?", "Book a free demo first. After the walkthrough, the Carat Logic team can help arrange access to the trial."],
+    ["What is included in every package?", "Every package includes one inventory module of your choice—Gem, Natural Diamond or Lab Grown Diamond—plus 1 free API key, custom roles and permissions, and unlimited stones and documents."],
+    ["How is the package price calculated?", "Each price is the package fee plus €50 for one inventory module: Standard is €100 + €50 = €150, Premium is €150 + €50 = €200 and Enterprise is €200 + €50 = €250 per month."],
+    ["Can I add more inventory modules or API keys?", "Yes. On any package, each extra inventory module is €50 per month and each extra API key is €25 per month."],
     ["Are stones or documents limited by package?", "No. All three paid packages include unlimited stones and documents."],
-    ["Which package should I choose?", "Choose Standard for one inventory module and up to 3 users. Choose Premium if you need the same single-module setup for up to 7 users. Choose Enterprise if you need both Gem and Diamond modules and KYC."],
+    ["Which package should I choose?", "Choose Standard for up to 3 users. Choose Premium if you need up to 7 users. Choose Enterprise if you also need all 17 platform features and customer and supplier KYC. Add extra inventory modules or API keys to any package."],
 ];
 
 const NAMES = ["Shapiro Gems", "Antwerp Gems", "Gem World", "Infinity Gems", "Dalila Diamonds"];
@@ -82,15 +93,12 @@ const notIncluded = (
 
 const CMP_ROWS: { label: string; cells: [ReactNode, ReactNode, ReactNode] }[] = [
     { label: "Monthly price", cells: ["€150", "€200", "€250"] },
-    {
-        label: "Inventory access",
-        cells: [
-            <>Gem <b>or</b> Diamond</>,
-            <>Gem <b>or</b> Diamond</>,
-            <>Gem <b>and</b> Diamond</>,
-        ],
-    },
+    { label: "Price breakdown", cells: ["€100 + €50", "€150 + €50", "€200 + €50"] },
+    { label: "Inventory modules included", cells: ["1 of choice", "1 of choice", "1 of choice"] },
+    { label: "Extra inventory module", cells: ["+€50 / mo", "+€50 / mo", "+€50 / mo"] },
     { label: "Active users", cells: ["Up to 3", "Up to 7", "Up to 7"] },
+    { label: "API keys included", cells: ["1 free", "1 free", "1 free"] },
+    { label: "Extra API key", cells: ["+€25 / mo", "+€25 / mo", "+€25 / mo"] },
     { label: "Platform features", cells: ["9 core features", "9 core features", "All 17 features"] },
     { label: "Customer and supplier KYC", cells: [notIncluded, notIncluded, included] },
     { label: "Custom roles and permissions", cells: [included, included, included] },
@@ -187,9 +195,9 @@ export function PricingPageMobile() {
             <section style={{ padding: "0 16px" }}>
                 <Reveal delay={0.12} y={18} style={{ padding: "24px 20px", borderRadius: 22, background: "#f6f7f7", display: "flex", flexDirection: "column", gap: 10 }}>
                     <span style={{ fontSize: 14, fontWeight: 600, color: "#245c3e" }}>Start with a free trial</span>
-                    <h2 style={{ margin: 0, fontSize: 26, lineHeight: 1.18, fontWeight: 600, letterSpacing: "-0.03em", color: "#0c0c10" }}>Explore Carat Logic for ₹0</h2>
+                    <h2 style={{ margin: 0, fontSize: 26, lineHeight: 1.18, fontWeight: 600, letterSpacing: "-0.03em", color: "#0c0c10" }}>Explore Carat Logic for €0</h2>
                     <p style={{ margin: 0, fontSize: 15, lineHeight: 1.65, color: "#3f4643" }}>
-                        Book a free demo first. After the walkthrough, our team can help arrange access to the ₹0 trial so you can explore Carat Logic before choosing a paid package.
+                        Book a free demo first. After the walkthrough, our team can help arrange access to the €0 trial so you can explore Carat Logic before choosing a paid package.
                     </p>
                     <p style={{ margin: 0, fontSize: 13, lineHeight: 1.55, color: "#6b736f", fontStyle: "italic" }}>
                         Trial access begins after a demo. Trial duration and access details can be confirmed during your walkthrough.
@@ -223,6 +231,7 @@ export function PricingPageMobile() {
                                 <span style={{ fontSize: 44, lineHeight: 1, fontWeight: 600, letterSpacing: "-0.04em", color: "#0c0c10" }}>{p.price}</span>
                                 <span style={{ fontSize: 15, color: "#5f6663" }}>/ month</span>
                             </div>
+                            <p style={{ margin: "10px 0 0", fontSize: 13, lineHeight: 1.5, color: "#5f6663" }}>{p.base} package + €50 for 1 inventory module</p>
                             <ul style={{ listStyle: "none", margin: "22px 0 0", padding: "20px 0 0", borderTop: "1px solid #eceeed", display: "flex", flexDirection: "column", gap: 12 }}>
                                 {p.features.map((f) => (
                                     <li key={f} style={{ display: "flex", gap: 10, fontSize: 15, lineHeight: 1.5, color: "#1d2320" }}>
@@ -234,6 +243,32 @@ export function PricingPageMobile() {
                         </motion.article>
                     ))}
                 </Stagger>
+                <Reveal y={14} style={{ marginTop: 32 }}>
+                    <h3 style={{ margin: "0 0 14px", padding: "0 4px", fontSize: 22, lineHeight: 1.2, fontWeight: 600, letterSpacing: "-0.02em", color: "#0c0c10" }}>Add-ons for any package</h3>
+                    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                        {ADDONS.map((a) => (
+                            <div key={a.name} style={{ padding: "20px 20px", borderRadius: 20, background: "#f6f7f7", display: "flex", flexDirection: "column", gap: 8 }}>
+                                <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 12 }}>
+                                    <h4 style={{ margin: 0, fontSize: 17, fontWeight: 600, letterSpacing: "-0.02em", color: "#0c0c10" }}>{a.name}</h4>
+                                    <span style={{ flex: "none", fontSize: 22, fontWeight: 600, letterSpacing: "-0.03em", color: "#0c0c10" }}>
+                                        {a.price}
+                                        <span style={{ fontSize: 13, fontWeight: 400, letterSpacing: 0, color: "#5f6663" }}> / month</span>
+                                    </span>
+                                </div>
+                                <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6, color: "#3f4643" }}>{a.desc}</p>
+                                {a.tags.length > 0 && (
+                                    <ul aria-label="Available inventory modules" style={{ listStyle: "none", margin: "4px 0 0", padding: 0, display: "flex", flexWrap: "wrap", gap: 6 }}>
+                                        {a.tags.map((t) => (
+                                            <li key={t} style={{ padding: "5px 10px", borderRadius: 999, background: "#ffffff", border: "1px solid #e6e9e8", fontSize: 13, fontWeight: 500, color: "#245c3e" }}>
+                                                {t}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                </Reveal>
                 <Reveal y={14} style={{ marginTop: 24, display: "flex", justifyContent: "center" }}>
                     <a href="/contact?tab=demo" className="cl-btn" style={{ minHeight: 54, display: "flex", alignItems: "center", gap: 14, padding: "6px 6px 6px 24px", borderRadius: 999, background: "#111827", color: "#ffffff", fontSize: 16, fontWeight: 600, boxShadow: "0 0 0 4px #ffffff, 0 0 0 5px #dfe3e1, 0 12px 24px rgba(17,24,39,0.2)" }}>
                         <span style={{ color: "#ffffff" }}>Book a demo</span>
@@ -242,7 +277,7 @@ export function PricingPageMobile() {
                         </span>
                     </a>
                 </Reveal>
-                <p style={{ margin: "16px 4px 0", textAlign: "center", fontSize: 13, color: "#6b736f", fontStyle: "italic" }}>Paid package prices are shown per month in euros.</p>
+                <p style={{ margin: "16px 4px 0", textAlign: "center", fontSize: 13, color: "#6b736f", fontStyle: "italic" }}>Paid package and add-on prices are shown per month in euros.</p>
             </section>
 
             {/* client logos */}
