@@ -7,28 +7,25 @@ import "./pricing-page.css";
 
 /* ---------- data ---------- */
 
-type Plan = { name: string; desc: string; price: string; base: string; features: string[]; hl?: boolean };
+type Plan = { name: string; desc: string; price: string; features: string[]; hl?: boolean };
 
 const PLANS: Plan[] = [
     {
         name: "Standard Package",
         desc: "For a small team managing one inventory module.",
         price: "€150",
-        base: "€100",
         features: ["1 inventory module of your choice", "Up to 3 active users", "1 free API key", "All 9 core platform features", "Custom roles and permissions", "Unlimited stones and documents"],
     },
     {
         name: "Premium Package",
         desc: "For teams that need more users on one inventory module.",
         price: "€200",
-        base: "€150",
         features: ["1 inventory module of your choice", "Up to 7 active users", "1 free API key", "All 9 core platform features", "Custom roles and permissions", "Unlimited stones and documents"],
     },
     {
         name: "Enterprise Package",
         desc: "For teams that need every platform feature, with customer and supplier KYC included.",
         price: "€250",
-        base: "€200",
         hl: true,
         features: ["1 inventory module of your choice", "Up to 7 active users", "1 free API key", "All 17 platform features", "KYC application included", "Custom roles and permissions", "Unlimited stones and documents"],
     },
@@ -234,10 +231,7 @@ export function PricingPageDesktop() {
                                     <span style={{ fontSize: 56, lineHeight: 1, fontWeight: 600, letterSpacing: "-0.04em", color: "#0c0c10" }}>{p.price}</span>
                                     <span style={{ fontSize: 16, color: "#5f6663" }}>/ month</span>
                                 </div>
-                                <p style={{ margin: "12px 0 0", fontSize: 14, lineHeight: 1.5, color: "#5f6663" }}>
-                                    {p.base} package + €50 for 1 inventory module
-                                </p>
-                                <ul style={{ listStyle: "none", margin: "28px 0 0", padding: "28px 0 0", borderTop: "1px solid #eceeed", display: "flex", flexDirection: "column", gap: 14 }}>
+                                <ul style={{ listStyle: "none", margin: "32px 0 0", padding: "28px 0 0", borderTop: "1px solid #eceeed", display: "flex", flexDirection: "column", gap: 14 }}>
                                     {p.features.map((f) => (
                                         <li key={f} style={{ display: "flex", gap: 12, fontSize: 16, lineHeight: 1.5, color: "#1d2320" }}>
                                             <Check style={{ flex: "none", marginTop: 3 }} />

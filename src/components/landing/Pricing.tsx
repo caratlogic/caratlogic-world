@@ -43,6 +43,13 @@ const PLANS: PlanInput[] = [
     },
 ];
 
+const MODULES = ["Gem Inventory", "Natural Diamond Inventory", "Lab Grown Diamond Inventory"];
+
+const ADDONS = [
+    { name: "Extra inventory module", price: "+€50", desc: "Every package includes one inventory module. Add any of the other modules for €50 per module, per month.", tags: MODULES },
+    { name: "Extra API key", price: "+€25", desc: "Every package includes 1 free API key. Each additional API key is €25 per key, per month.", tags: [] },
+];
+
 function dotStyle(i: number, users: number): CSSProperties {
     const on = i <= users;
     const last = i === users;
@@ -188,6 +195,36 @@ export function Pricing() {
                         <PlanCard key={p.name} plan={p} />
                     ))}
                 </Stagger>
+
+                {/* add-ons */}
+                <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+                    <Reveal>
+                        <h3 style={{ margin: 0, fontSize: 28, lineHeight: 1.2, fontWeight: 600, letterSpacing: "-0.025em", color: "#0c0c10", textAlign: "center" }}>Add-ons for any package</h3>
+                    </Reveal>
+                    <Stagger className="cl-bottom" stagger={0.1}>
+                        {ADDONS.map((a) => (
+                            <motion.div key={a.name} variants={itemVariants} style={{ display: "flex", flexDirection: "column", gap: 10, padding: 32, borderRadius: 24, background: "#ffffff", border: "1px solid #e6e9e8", boxSizing: "border-box" }}>
+                                <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 16 }}>
+                                    <h4 style={{ margin: 0, fontSize: 22, lineHeight: 1.25, fontWeight: 600, letterSpacing: "-0.02em", color: "#0c0c10" }}>{a.name}</h4>
+                                    <span style={{ flex: "none", fontSize: 28, fontWeight: 600, letterSpacing: "-0.03em", color: "#0c0c10" }}>
+                                        {a.price}
+                                        <span style={{ fontSize: 14, fontWeight: 400, letterSpacing: 0, color: "#5f6663" }}> / month</span>
+                                    </span>
+                                </div>
+                                <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6, color: "#5f6663" }}>{a.desc}</p>
+                                {a.tags.length > 0 && (
+                                    <ul aria-label="Available inventory modules" style={{ listStyle: "none", margin: "6px 0 0", padding: 0, display: "flex", flexWrap: "wrap", gap: 8 }}>
+                                        {a.tags.map((t) => (
+                                            <li key={t} style={{ padding: "6px 12px", borderRadius: 999, background: "#edf5f0", fontSize: 14, fontWeight: 500, color: "#245c3e" }}>
+                                                {t}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                )}
+                            </motion.div>
+                        ))}
+                    </Stagger>
+                </div>
 
                 {/* bottom: unlimited + help */}
                 <Stagger className="cl-bottom" stagger={0.1}>
