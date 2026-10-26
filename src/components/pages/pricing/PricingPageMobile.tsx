@@ -188,28 +188,6 @@ export function PricingPageMobile() {
                 </motion.h1>
             </section>
 
-            {/* free trial */}
-            <section style={{ padding: "0 16px" }}>
-                <Reveal delay={0.12} y={18} style={{ padding: "24px 20px", borderRadius: 22, background: "#f6f7f7", display: "flex", flexDirection: "column", gap: 10 }}>
-                    <span style={{ fontSize: 14, fontWeight: 600, color: "#245c3e" }}>Start with a free trial</span>
-                    <h2 style={{ margin: 0, fontSize: 26, lineHeight: 1.18, fontWeight: 600, letterSpacing: "-0.03em", color: "#0c0c10" }}>Explore Carat Logic for €0</h2>
-                    <p style={{ margin: 0, fontSize: 15, lineHeight: 1.65, color: "#3f4643" }}>
-                        Book a free demo first. After the walkthrough, our team can help arrange access to the €0 trial so you can explore Carat Logic before choosing a paid package.
-                    </p>
-                    <p style={{ margin: 0, fontSize: 13, lineHeight: 1.55, color: "#6b736f", fontStyle: "italic" }}>
-                        Trial access begins after a demo. Trial duration and access details can be confirmed during your walkthrough.
-                    </p>
-                    <div style={{ marginTop: 8 }}>
-                        <a href="/contact?tab=demo" className="cl-btn" style={{ width: "100%", boxSizing: "border-box", minHeight: 54, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12, padding: "6px 6px 6px 22px", borderRadius: 999, background: "#111827", color: "#ffffff", fontSize: 16, fontWeight: 600 }}>
-                            <span style={{ color: "#ffffff" }}>Book a free demo</span>
-                            <span style={{ flex: "none", width: 40, height: 40, borderRadius: 999, background: "#ffffff", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                                <Arrow stroke="#111827" />
-                            </span>
-                        </a>
-                    </div>
-                </Reveal>
-            </section>
-
             {/* packages */}
             <section style={{ padding: "56px 16px 0" }}>
                 <Reveal y={16}>

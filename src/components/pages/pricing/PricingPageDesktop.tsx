@@ -190,31 +190,6 @@ export function PricingPageDesktop() {
                 </div>
             </section>
 
-            {/* ============ FREE TRIAL ============ */}
-            <section style={{ padding: "0 24px 24px" }}>
-                <Reveal
-                    style={{ maxWidth: 1200, margin: "0 auto", display: "grid", gridTemplateColumns: "minmax(0,1fr) auto", gap: 40, alignItems: "center", padding: "36px 40px", borderRadius: 24, background: "#f6f7f7" }}
-                    delay={0.15}
-                >
-                    <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                        <span style={{ fontSize: 15, fontWeight: 600, color: "#245c3e" }}>Start with a free trial</span>
-                        <h2 style={{ margin: 0, fontSize: 34, lineHeight: 1.15, fontWeight: 600, letterSpacing: "-0.03em", color: "#0c0c10" }}>Explore Carat Logic for €0</h2>
-                        <p style={{ margin: 0, maxWidth: 680, fontSize: 17, lineHeight: 1.65, color: "#3f4643" }}>
-                            Book a free demo first. After the walkthrough, our team can help arrange access to the €0 trial so you can explore Carat Logic before choosing a paid package.
-                        </p>
-                        <p style={{ margin: "6px 0 0", fontSize: 14, lineHeight: 1.55, color: "#6b736f", fontStyle: "italic" }}>
-                            Trial access begins after a demo. Trial duration and access details can be confirmed during your walkthrough.
-                        </p>
-                    </div>
-                    <a href="/contact?tab=demo" className="cl-btn" style={{ display: "flex", alignItems: "center", gap: 14, padding: "7px 7px 7px 24px", borderRadius: 999, background: "#111827", color: "#ffffff", fontSize: 16, fontWeight: 600, boxShadow: "0 0 0 4px #ffffff, 0 0 0 5px #dfe3e1, 0 12px 24px rgba(17,24,39,0.2)" }}>
-                        <span style={{ color: "#ffffff" }}>Book a free demo</span>
-                        <span style={{ flex: "none", width: 40, height: 40, borderRadius: 999, background: "#ffffff", display: "flex", alignItems: "center", justifyContent: "center" }}>
-                            <Arrow stroke="#111827" />
-                        </span>
-                    </a>
-                </Reveal>
-            </section>
-
             {/* ============ PACKAGES ============ */}
             <section style={{ padding: "88px 24px 24px" }}>
                 <div style={{ maxWidth: 1200, margin: "0 auto" }}>
