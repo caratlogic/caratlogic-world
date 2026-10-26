@@ -736,12 +736,12 @@ export function Header() {
                     {open && (
                         <motion.div
                             key="panel"
-                            className="cl-panel"
+                            className="cl-panel shadow-2xl"
                             initial={reduce ? { opacity: 0 } : { opacity: 0, y: -8, clipPath: "inset(0 0 100% 0)" }}
                             animate={{ opacity: 1, y: 0, clipPath: "inset(0 0 0% 0)" }}
                             exit={reduce ? { opacity: 0 } : { opacity: 0, y: -6, clipPath: "inset(0 0 100% 0)" }}
                             transition={{ duration: 0.32, ease: EASE }}
-                            style={{ position: "absolute", left: 0, right: 0, top: "100%", zIndex: 20, background: "#ffffff", borderTop: "1px solid #eceeed", boxShadow: "0 30px 60px rgba(16,24,20,0.12)" }}
+                            style={{ position: "absolute", left: 0, right: 0, top: "100%", zIndex: 20, background: "#ffffff", borderTop: "1px solid #eceeed" }}
                         >
                             <AnimatePresence mode="wait" initial={false}>
                                 <motion.div key={open} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.15 }}>
