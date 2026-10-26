@@ -1,20 +1,17 @@
 "use client";
 
 import { Reveal } from "./motion";
+import { CLIENTS } from "@/components/site/clients";
+import { ClientChip } from "@/components/site/ClientChip";
 import "./logos.css";
 
-const NAMES = ["Shapiro Gems", "Antwerp Gems", "Gem World", "Infinity Gems", "Dalila Diamonds"];
-
-/** The design lists the five names twice per row (10 logos). */
-const LOGOS = [...NAMES, ...NAMES].map((name, i) => ({ name, id: i }));
-
 /**
- * One set of 10 logos is ~2,250px wide (incl. gaps), narrower than wide or zoomed-out screens, which left
- * an empty gap as the strip scrolled. Each marquee half repeats the set so it covers viewports up to
- * ~6,700px, and the duration scales with the repeats to keep the design's speed (36s per set).
+ * One set of the 9 client chips is ~2,900px wide (incl. gaps). Each marquee half repeats the set so it
+ * covers very wide or zoomed-out screens without a gap, and the duration scales with the repeats so the
+ * strip keeps a steady speed (~44s per set).
  */
 const SET_REPEATS = 3;
-const MARQUEE_SECONDS = 36 * SET_REPEATS;
+const MARQUEE_SECONDS = 44 * SET_REPEATS;
 
 /** Two identical rows; the second is aria-hidden and makes the -50% marquee loop seamless. */
 const ROWS = [{ hidden: false }, { hidden: true }];
@@ -40,11 +37,9 @@ export function Logos() {
                     <div className="cl-track" style={{ display: "flex", width: "max-content", animationDuration: `${MARQUEE_SECONDS}s` }}>
                         {ROWS.map((row, r) => (
                             <div key={r} aria-hidden={row.hidden} style={{ display: "flex", alignItems: "center", gap: 72, paddingRight: 72 }}>
-                                {Array.from({ length: SET_REPEATS }, (_, k) => LOGOS.map((l) => ({ ...l, key: `${k}-${l.id}`, repeat: k > 0 }))).flat().map((l) => (
-                                    <span key={l.key} className="cl-logo" aria-hidden={l.repeat || undefined} style={{ display: "flex", alignItems: "center", gap: 12, height: 48, color: "#2b302e" }}>
-                                        <span style={{ fontSize: 24, fontWeight: 700, letterSpacing: "-0.03em", whiteSpace: "nowrap" }}>{l.name}</span>
-                                    </span>
-                                ))}
+                                {Array.from({ length: SET_REPEATS }, (_, k) =>
+                                    CLIENTS.map((c) => <ClientChip key={`${k}-${c.name}`} client={c} size="lg" hidden={row.hidden || k > 0} />),
+                                )}
                             </div>
                         ))}
                     </div>

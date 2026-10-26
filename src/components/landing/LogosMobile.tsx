@@ -1,16 +1,13 @@
 "use client";
 
 import { Reveal } from "./motion";
+import { CLIENTS } from "@/components/site/clients";
+import { ClientChip } from "@/components/site/ClientChip";
 import "./logos-mobile.css";
-
-const NAMES = ["Shapiro Gems", "Antwerp Gems", "Gem World", "Infinity Gems", "Dalila Diamonds"];
-
-/** The design lists the five names twice per row (10 logos). */
-const LOGOS = [...NAMES, ...NAMES].map((name, i) => ({ name, id: i }));
 
 /**
  * Two identical rows; the second is aria-hidden and makes the -50% marquee loop seamless.
- * One row is ~1,400px wide, well beyond the <768px viewports this renders in, so no extra repeats are needed.
+ * One row of the 9 client chips is ~1,900px wide, well beyond the <768px viewports this renders in.
  */
 const ROWS = [{ hidden: false }, { hidden: true }];
 
@@ -35,10 +32,8 @@ export function LogosMobile() {
                     <div className="cl-track" style={{ display: "flex", width: "max-content" }}>
                         {ROWS.map((row, r) => (
                             <div key={r} aria-hidden={row.hidden} style={{ display: "flex", alignItems: "center", gap: 36, paddingRight: 36 }}>
-                                {LOGOS.map((l) => (
-                                    <span key={l.id} className="cl-logo" style={{ display: "flex", alignItems: "center", gap: 8, height: 36, color: "#2b302e" }}>
-                                        <span style={{ fontSize: 17, fontWeight: 700, letterSpacing: "-0.03em", whiteSpace: "nowrap" }}>{l.name}</span>
-                                    </span>
+                                {CLIENTS.map((c) => (
+                                    <ClientChip key={c.name} client={c} size="sm" hidden={row.hidden} />
                                 ))}
                             </div>
                         ))}

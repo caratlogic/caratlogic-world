@@ -34,7 +34,19 @@
     }
 }
 .pg-pricing-m .cl-track {
-    animation: pgPricingMMarquee 30s linear infinite;
+    animation: pgPricingMMarquee 40s linear infinite;
+}
+.pg-pricing-m .cl-logo {
+    transition:
+        opacity 0.2s ease,
+        filter 0.2s ease;
+    opacity: 0.55;
+    filter: grayscale(1);
+}
+.pg-pricing-m .cl-logo:hover,
+.pg-pricing-m .cl-logo:focus-visible {
+    opacity: 1;
+    filter: none;
 }
 @media (prefers-reduced-motion: reduce) {
     .pg-pricing-m .cl-track {

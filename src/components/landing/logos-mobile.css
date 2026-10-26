@@ -11,7 +11,7 @@
     }
 }
 .lp-logos-m .cl-track {
-    animation: lpLogosMMarquee 28s linear infinite;
+    animation: lpLogosMMarquee 38s linear infinite;
 }
 .lp-logos-m .cl-strip:hover .cl-track {
     animation-play-state: paused;
@@ -23,7 +23,8 @@
     opacity: 0.55;
     filter: grayscale(1);
 }
-.lp-logos-m .cl-logo:hover {
+.lp-logos-m .cl-logo:hover,
+.lp-logos-m .cl-logo:focus-visible {
     opacity: 1;
     filter: none;
 }

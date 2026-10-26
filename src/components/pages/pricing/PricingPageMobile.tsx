@@ -3,6 +3,8 @@
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useId, useState, type ReactNode } from "react";
 import { EASE, Reveal, Stagger, itemVariants } from "@/components/landing/motion";
+import { CLIENTS } from "@/components/site/clients";
+import { ClientChip } from "@/components/site/ClientChip";
 import "./pricing-page-mobile.css";
 
 /* ---------- data ---------- */
@@ -39,8 +41,6 @@ const QA: [string, string][] = [
     ["Which package should I choose?", "Choose Standard for one inventory module and up to 3 users. Choose Premium if you need the same single-module setup for up to 7 users. Choose Enterprise if you need both Gem and Diamond modules and KYC."],
 ];
 
-const NAMES = ["Shapiro Gems", "Antwerp Gems", "Gem World", "Infinity Gems", "Dalila Diamonds"];
-const LOGOS = [...NAMES, ...NAMES];
 const ROWS = [{ hidden: false }, { hidden: true }];
 const stripMask = "linear-gradient(90deg, rgba(0,0,0,0) 0%, #000000 14%, #000000 86%, rgba(0,0,0,0) 100%)";
 
@@ -254,10 +254,8 @@ export function PricingPageMobile() {
                     <div className="cl-track" style={{ display: "flex", width: "max-content" }}>
                         {ROWS.map((row, r) => (
                             <div key={r} aria-hidden={row.hidden || undefined} style={{ display: "flex", alignItems: "center", gap: 44, paddingRight: 44 }}>
-                                {LOGOS.map((name, i) => (
-                                    <span key={i} style={{ fontSize: 19, fontWeight: 700, letterSpacing: "-0.03em", whiteSpace: "nowrap", color: "#2b302e", opacity: 0.55 }}>
-                                        {name}
-                                    </span>
+                                {CLIENTS.map((c) => (
+                                    <ClientChip key={c.name} client={c} size="sm" hidden={row.hidden} />
                                 ))}
                             </div>
                         ))}

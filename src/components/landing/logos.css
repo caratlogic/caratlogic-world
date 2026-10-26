@@ -23,7 +23,8 @@
     opacity: 0.55;
     filter: grayscale(1);
 }
-.lp-logos .cl-logo:hover {
+.lp-logos .cl-logo:hover,
+.lp-logos .cl-logo:focus-visible {
     opacity: 1;
     filter: none;
 }

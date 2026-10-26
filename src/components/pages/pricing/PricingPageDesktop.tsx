@@ -3,6 +3,8 @@
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useId, useState, type CSSProperties, type ReactNode } from "react";
 import { EASE, Reveal, Stagger, itemVariants } from "@/components/landing/motion";
+import { CLIENTS } from "@/components/site/clients";
+import { ClientChip } from "@/components/site/ClientChip";
 import "./pricing-page.css";
 
 /* ---------- data ---------- */
@@ -39,12 +41,9 @@ const QA: [string, string][] = [
     ["Which package should I choose?", "Choose Standard for one inventory module and up to 3 users. Choose Premium if you need the same single-module setup for up to 7 users. Choose Enterprise if you need both Gem and Diamond modules and KYC."],
 ];
 
-const NAMES = ["Shapiro Gems", "Antwerp Gems", "Gem World", "Infinity Gems", "Dalila Diamonds"];
-/** The design lists the five names twice per row (10 logos). */
-const LOGOS = [...NAMES, ...NAMES];
 /**
- * One set of 10 logos (~2,250px) is narrower than wide screens; each marquee half repeats the set so it
- * covers them, and the duration scales with the repeats to keep the design's speed (36s per set).
+ * One set of the 9 client chips (~2,900px) can be narrower than very wide screens; each marquee half
+ * repeats the set so it never shows a gap, and the duration scales with the repeats (~44s per set).
  */
 const SET_REPEATS = 3;
 const ROWS = [{ hidden: false }, { hidden: true }];
@@ -256,15 +255,11 @@ export function PricingPageDesktop() {
                         <p style={{ margin: 0, padding: "0 24px", textAlign: "center", fontSize: 17, fontWeight: 500, color: "#111114" }}>Trusted by diamond and gemstone businesses worldwide</p>
                     </Reveal>
                     <Reveal className="cl-strip" delay={0.1} y={16} style={{ position: "relative", width: "100%", overflow: "hidden", WebkitMaskImage: stripMask, maskImage: stripMask }}>
-                        <div className="cl-track" style={{ display: "flex", width: "max-content", animationDuration: `${36 * SET_REPEATS}s` }}>
+                        <div className="cl-track" style={{ display: "flex", width: "max-content", animationDuration: `${44 * SET_REPEATS}s` }}>
                             {ROWS.map((row, r) => (
                                 <div key={r} aria-hidden={row.hidden || undefined} style={{ display: "flex", alignItems: "center", gap: 72, paddingRight: 72 }}>
                                     {Array.from({ length: SET_REPEATS }, (_, k) =>
-                                        LOGOS.map((name, i) => (
-                                            <span key={`${k}-${i}`} className="cl-logo" aria-hidden={k > 0 || undefined} style={{ display: "flex", alignItems: "center", height: 48, color: "#2b302e" }}>
-                                                <span style={{ fontSize: 24, fontWeight: 700, letterSpacing: "-0.03em", whiteSpace: "nowrap" }}>{name}</span>
-                                            </span>
-                                        )),
+                                        CLIENTS.map((c) => <ClientChip key={`${k}-${c.name}`} client={c} size="lg" hidden={row.hidden || k > 0} />),
                                     )}
                                 </div>
                             ))}

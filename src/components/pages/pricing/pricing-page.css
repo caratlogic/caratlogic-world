@@ -98,7 +98,8 @@
     opacity: 0.55;
     filter: grayscale(1);
 }
-.pg-pricing .cl-logo:hover {
+.pg-pricing .cl-logo:hover,
+.pg-pricing .cl-logo:focus-visible {
     opacity: 1;
     filter: none;
 }
