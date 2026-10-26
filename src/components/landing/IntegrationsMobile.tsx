@@ -3,6 +3,7 @@
 import { useRef, useState, type CSSProperties } from "react";
 import { AnimatePresence, motion, useAnimationFrame, useInView, useReducedMotion, type Variants } from "motion/react";
 import { EASE, Reveal } from "./motion";
+import { integrationHref } from "@/components/site/integrations";
 import "./integrations-mobile.css";
 
 /* Diagram artboard: 350 × 440, hub at (175, 220). Positions are converted to % so the stage can shrink on narrow phones. */
@@ -19,9 +20,10 @@ const NODES: NodeData[] = [
     { x: 290, y: 58, mono: "NV", label: "Nivoda", slug: "nivoda", category: "Diamond Marketplace", title: "Nivoda", desc: "List stock on Nivoda and keep updates flowing back into your Carat Logic inventory." },
     { x: 105, y: 140, mono: "IDX", label: "IDEX", slug: "idex", category: "Diamond Marketplace", title: "IDEX", desc: "Send stock to IDEX and receive trading updates back into Carat Logic." },
     { x: 245, y: 140, mono: "+", label: "More", slug: "request", category: "Diamond Marketplace", title: "More Marketplaces", desc: "Trade on another marketplace? Tell us which one and we’ll discuss the connection in your demo.", req: true },
-    { x: 75, y: 362, mono: "PP", label: "Peppol", slug: "peppol", category: "E-Invoicing · Europe", title: "Peppol", desc: "Send e-invoices to European trading partners and receive their incoming e-invoices directly in Carat Logic." },
-    { x: 175, y: 362, mono: "GST", label: "GST", slug: "gst-e-invoicing", category: "E-Invoicing · India", title: "GST E-Invoicing", desc: "Send invoices for GST e-invoice registration and receive the registered details back on your invoice." },
-    { x: 275, y: 362, mono: "+", label: "Request", slug: "request", category: "E-Invoicing", title: "Request a Connection", desc: "Need another e-invoicing or billing system? Let us know which connections matter to your business.", req: true },
+    { x: 45, y: 362, mono: "PP", label: "Peppol", slug: "peppol", category: "E-Invoicing · Europe", title: "Peppol", desc: "Send e-invoices to European trading partners and receive their incoming e-invoices directly in Carat Logic." },
+    { x: 130, y: 362, mono: "KSeF", label: "KSeF", slug: "ksef", category: "E-Invoicing · Poland", title: "KSeF", desc: "Send e-invoices through Poland’s National e-Invoicing System (KSeF) and receive incoming invoices from your Polish trading partners." },
+    { x: 220, y: 362, mono: "GST", label: "GST", slug: "gst-e-invoicing", category: "E-Invoicing · India", title: "GST E-Invoicing", desc: "Send invoices for GST e-invoice registration and receive the registered details back on your invoice." },
+    { x: 305, y: 362, mono: "+", label: "Request", slug: "request", category: "E-Invoicing", title: "Request a Connection", desc: "Need another e-invoicing or billing system? Let us know which connections matter to your business.", req: true },
 ];
 
 /* Connector from each node to the hub: straight when vertically aligned, otherwise an S-curve. */
@@ -31,14 +33,13 @@ const LINES = NODES.map(({ x, y }) => {
     return `M ${x} ${y} C ${x} ${my} ${HX} ${my} ${HX} ${HY}`;
 });
 
-/* No integration pages exist yet, so the detail card links to the enquiry form. */
-const NODE_HREF = "/contact?tab=query";
+/* The detail card opens the selected integration's page ("More" / "Request" go to the enquiry form). */
 
 /*
  * Two-way data flow (design used SMIL animateMotion; here driven per frame). Each motion path runs node → hub
  * (same d as that node's connector) and carries two pulses, all with dur 2.6s:
- *  - out: green "Sent from Carat Logic" pulse, hub → node (design: keyPoints="1;0")
- *  - in:  dark "Received into Carat Logic" pulse, node → hub
+ *  - out: green pulse (data sent from Carat Logic), hub → node (design: keyPoints="1;0")
+ *  - in:  dark pulse (data received into Carat Logic), node → hub
  * begin < 0 = phase offset, copied from the design. The two "request" nodes have no pulses.
  */
 const DUR = 2.6;
@@ -47,8 +48,9 @@ const FLOWS = [
     { d: "M 175 58 L 175 220", out: -0.4, in: -1.7 },
     { d: "M 290 58 C 290 139 175 139 175 220", out: -0.8, in: -2.1 },
     { d: "M 105 140 C 105 180 175 180 175 220", out: -1.2, in: -2.5 },
-    { d: "M 75 362 C 75 291 175 291 175 220", out: -1.6, in: -2.9 },
-    { d: "M 175 362 L 175 220", out: -2.0, in: -3.3 },
+    { d: "M 45 362 C 45 291 175 291 175 220", out: -1.6, in: -2.9 },
+    { d: "M 130 362 C 130 291 175 291 175 220", out: -2.0, in: -3.3 },
+    { d: "M 220 362 C 220 291 175 291 175 220", out: -2.4, in: -3.7 },
 ];
 const DOTS = FLOWS.flatMap((f, i) => [
     { path: i, begin: f.out, outbound: true },
@@ -75,9 +77,7 @@ const fadeVariants: Variants = {
     show: (delay: number) => ({ opacity: 1, transition: { duration: 0.6, ease: EASE, delay } }),
 };
 
-const captionStyle: CSSProperties = { position: "absolute", left: 0, right: 0, textAlign: "center", fontSize: 11, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#8a908d" };
 const dashLine: CSSProperties = { width: 36, height: 2, backgroundImage: "repeating-linear-gradient(90deg, #317a51 0 6px, rgba(0,0,0,0) 6px 11px)" };
-const legendPill: CSSProperties = { display: "inline-flex", alignItems: "center", gap: 9, padding: "9px 14px", borderRadius: 999, background: "#ffffff", border: "1px solid #e6e9e8", fontSize: 13, fontWeight: 600, color: "#1d2320" };
 const tile: CSSProperties = { width: 52, height: 52, borderRadius: 16, background: "#ffffff", border: "1px solid #e3e6e5", boxShadow: "0 8px 18px rgba(16,24,20,0.1)", display: "flex", alignItems: "center", justifyContent: "center" };
 
 export function IntegrationsMobile() {
@@ -156,25 +156,10 @@ export function IntegrationsMobile() {
                         )}
                     </svg>
 
-                    {/* group captions */}
-                    <motion.span variants={fadeVariants} custom={0.1} style={{ ...captionStyle, top: -4 }}>
-                        Diamond marketplaces
-                    </motion.span>
-                    <motion.span variants={fadeVariants} custom={0.1} style={{ ...captionStyle, bottom: -2 }}>
-                        E-invoicing
-                    </motion.span>
-
                     {/* centre hub */}
                     <motion.div className="cl-hub" variants={hubVariants} style={{ position: "absolute", left: `${(HX / W) * 100}%`, top: `${(HY / H) * 100}%`, x: "-50%", y: "-50%", width: 84, height: 84, borderRadius: 24, background: "#ffffff", border: "1px solid #dfe8e2", display: "flex", alignItems: "center", justifyContent: "center" }}>
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img src="/design/0fc523af826128299a3c79d997fe5e16.png" alt="Carat Logic" style={{ width: "58%", height: "auto", display: "block" }} />
-                        <span aria-hidden="true" style={{ position: "absolute", bottom: -12, left: "50%", transform: "translateX(-50%)", display: "flex", alignItems: "center", gap: 5, padding: "4px 9px", borderRadius: 999, background: "#111827", color: "#ffffff", fontSize: 10, fontWeight: 600, whiteSpace: "nowrap" }}>
-                            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#ffffff" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round">
-                                <path d="M7 7h12l-3-3" />
-                                <path d="M17 17H5l3 3" />
-                            </svg>
-                            Two-way sync
-                        </span>
                     </motion.div>
 
                     {/* nodes */}
@@ -217,26 +202,6 @@ export function IntegrationsMobile() {
                     })}
                 </motion.div>
 
-                {/* two-way legend */}
-                <Reveal style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 8 }}>
-                    <span style={legendPill}>
-                        <span aria-hidden="true" style={{ width: 9, height: 9, borderRadius: 999, background: "#317a51" }} />
-                        Sent from Carat Logic
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#317a51" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                            <path d="M5 12h14" />
-                            <path d="m13 6 6 6-6 6" />
-                        </svg>
-                    </span>
-                    <span style={legendPill}>
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#111827" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                            <path d="M19 12H5" />
-                            <path d="m11 6-6 6 6 6" />
-                        </svg>
-                        Received into Carat Logic
-                        <span aria-hidden="true" style={{ width: 9, height: 9, borderRadius: 999, background: "#111827" }} />
-                    </span>
-                </Reveal>
-
                 {/* detail card for the tapped node */}
                 <Reveal style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                     <span style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6, fontSize: 12, color: "#6b736f" }}>
@@ -246,7 +211,7 @@ export function IntegrationsMobile() {
                         </svg>
                         Tap a connection to see details
                     </span>
-                    <a href={NODE_HREF} role="status" style={{ display: "block", borderRadius: 22, background: "#ffffff", border: "1px solid #e6e9e8", boxShadow: "0 18px 40px rgba(16,24,20,0.1)", overflow: "hidden", color: "#111114" }}>
+                    <a href={integrationHref(r.slug)} aria-live="polite" style={{ display: "block", borderRadius: 22, background: "#ffffff", border: "1px solid #e6e9e8", boxShadow: "0 18px 40px rgba(16,24,20,0.1)", overflow: "hidden", color: "#111114" }}>
                         <AnimatePresence mode="wait" initial={false}>
                             <motion.span
                                 key={sel}
@@ -290,11 +255,6 @@ export function IntegrationsMobile() {
                     </a>
                 </Reveal>
 
-                <Reveal>
-                    <a href="/contact?tab=query" style={{ minHeight: 52, display: "flex", alignItems: "center", justifyContent: "center", borderRadius: 14, background: "linear-gradient(180deg, #1f2937 0%, #111827 100%)", color: "#ffffff", fontSize: 15, fontWeight: 600, boxShadow: "inset 0 1px 0 rgba(255,255,255,0.12), 0 10px 24px rgba(17,24,39,0.25)" }}>
-                        <span style={{ color: "#ffffff" }}>Explore all integrations</span>
-                    </a>
-                </Reveal>
             </div>
         </section>
     );

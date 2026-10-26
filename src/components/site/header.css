@@ -123,15 +123,15 @@
     outline-offset: 2px;
 }
 
-/* Features menu (NavFeatures design): two product groups split by a divider */
+/* Features menu (NavFeatures design): Inventory | Integrations | KYC, split by dividers */
 .site-header .cl-feat2-grid {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    gap: 56px;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 1.1fr);
+    gap: 40px;
 }
-.site-header .cl-feat2-second {
+.site-header .cl-feat2-sep {
     border-left: 1px solid #eceeed;
-    padding-left: 56px;
+    padding-left: 40px;
 }
 .site-header .cl-feat-link {
     transition: color 0.15s ease, background-color 0.15s ease;
@@ -141,10 +141,10 @@
 }
 @media (max-width: 1100px) {
     .site-header .cl-feat2-grid {
-        gap: 32px;
+        gap: 24px;
     }
-    .site-header .cl-feat2-second {
-        padding-left: 32px;
+    .site-header .cl-feat2-sep {
+        padding-left: 24px;
     }
 }
 

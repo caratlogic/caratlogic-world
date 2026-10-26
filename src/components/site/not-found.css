@@ -1,0 +1,200 @@
+/* 404 page — home hero visual language */
+.site-404 {
+    position: relative;
+    overflow: hidden;
+    font-family: var(--font-geist-sans), "Geist", ui-sans-serif, system-ui, sans-serif;
+    color: #111114;
+    background: #ffffff;
+    padding: 88px 24px 120px;
+    min-height: calc(100vh - 129px);
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+}
+.site-404 a {
+    text-decoration: none;
+}
+.site-404-glow {
+    position: absolute;
+    left: 50%;
+    top: 40px;
+    width: 720px;
+    height: 420px;
+    transform: translateX(-50%);
+    background: radial-gradient(closest-side, rgba(127, 195, 145, 0.22), rgba(127, 195, 145, 0) 100%);
+    pointer-events: none;
+}
+.site-404-inner {
+    position: relative;
+    width: 100%;
+    max-width: 920px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 24px;
+}
+
+/* faceted diamond tile (hero floating card) */
+@keyframes site404Bob {
+    0%,
+    100% {
+        translate: 0 0;
+    }
+    50% {
+        translate: 0 -10px;
+    }
+}
+.site-404-gem {
+    width: 132px;
+    height: 132px;
+    border-radius: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.82);
+    border: 1px solid rgba(255, 255, 255, 0.95);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.9) inset, 0 24px 48px rgba(28, 72, 48, 0.16), 0 4px 12px rgba(28, 72, 48, 0.08);
+    transform: rotate(-8deg);
+    animation: site404Bob 6s ease-in-out infinite;
+}
+
+.site-404-pill {
+    display: inline-flex;
+    align-items: center;
+    padding: 9px 18px;
+    border-radius: 999px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #111114;
+    border: 2px solid transparent;
+    background: linear-gradient(#ffffff, #ffffff) padding-box, linear-gradient(90deg, #2c6f4b, #7fc88f, #36823a, #317a51) border-box;
+}
+.site-404-title {
+    margin: 0;
+    font-size: clamp(36px, 5vw, 64px);
+    line-height: 1.06;
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    color: #0c0c10;
+}
+.site-404-lead {
+    margin: 0;
+    max-width: 640px;
+    font-size: clamp(17px, 1.5vw, 20px);
+    line-height: 1.55;
+    color: #6b6b75;
+}
+
+/* hero pill buttons */
+.site-404-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 8px;
+}
+.site-404-btn {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 9px 9px 9px 28px;
+    border-radius: 999px;
+    font-size: 18px;
+    font-weight: 600;
+    color: #ffffff;
+    transition: transform 0.2s ease;
+}
+.site-404-btn:hover {
+    transform: translateY(-1px);
+}
+.site-404-btn:focus-visible,
+.site-404-chip:focus-visible {
+    outline: 3px solid #317a51;
+    outline-offset: 3px;
+}
+.site-404-btn-dark {
+    background: #111827;
+    box-shadow: 0 0 0 5px #ffffff, 0 0 0 6px #e0e0e8, 0 12px 28px rgba(0, 0, 0, 0.2);
+}
+.site-404-btn-green {
+    background: linear-gradient(90deg, #245c3e 0%, #317a51 55%, #3f9463 100%);
+    box-shadow: 0 0 0 5px #ffffff, 0 0 0 6px #cfe8d0, 0 12px 28px rgba(44, 111, 75, 0.3);
+}
+.site-404-knob {
+    width: 42px;
+    height: 42px;
+    border-radius: 999px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* quick links */
+.site-404-links {
+    margin-top: 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+.site-404-links-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #6b736f;
+}
+.site-404-chips {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+}
+.site-404-chip {
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 1px solid #e3e6e5;
+    background: #ffffff;
+    font-size: 14px;
+    font-weight: 500;
+    color: #3a403d;
+    transition: border-color 0.15s ease, color 0.15s ease;
+}
+.site-404-chip:hover {
+    border-color: #9cc9a8;
+    color: #245c3e;
+}
+
+@media (max-width: 767px) {
+    .site-404 {
+        padding: 48px 16px 120px;
+        min-height: calc(100vh - 111px);
+    }
+    .site-404-gem {
+        width: 104px;
+        height: 104px;
+        border-radius: 26px;
+    }
+    .site-404-gem svg {
+        width: 60px;
+        height: 56px;
+    }
+    .site-404-actions {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        max-width: 340px;
+    }
+    .site-404-btn {
+        justify-content: space-between;
+        font-size: 16px;
+    }
+}
+@media (prefers-reduced-motion: reduce) {
+    .site-404-gem {
+        animation: none;
+    }
+}

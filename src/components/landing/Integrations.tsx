@@ -1,15 +1,16 @@
 "use client";
 
-import { useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
+import Link from "next/link";
 import { AnimatePresence, motion, useAnimationFrame, useInView, useReducedMotion, type Variants } from "motion/react";
 import { EASE, Reveal, Stagger, itemVariants } from "./motion";
+import { integrationHref } from "@/components/site/integrations";
 import "./integrations.css";
 
 type NodeOpts = { size?: number; color?: string; dashed?: boolean };
 type NodeData = { x: number; y: number; mono: string; label: string; slug: string; category: string; title: string; desc: string; opts: NodeOpts };
 
-/* No integration pages exist yet, so every node / chip links to the enquiry form. */
-const NODE_HREF = "/contact?tab=query";
+/* Each node links to its integration page; "More marketplaces" / "Request a connection" go to the enquiry form. */
 
 const NODES: NodeData[] = [
     { x: 90, y: 70, mono: "RN", label: "Rapaport / RapNet", slug: "rapnet", category: "Diamond Marketplace", title: "Rapaport Trade / RapNet", desc: "Send stock to Rapaport Trade / RapNet and bring marketplace updates back into Carat Logic.", opts: { size: 6.6 } },
@@ -18,6 +19,7 @@ const NODES: NodeData[] = [
     { x: 90, y: 310, mono: "IDX", label: "IDEX", slug: "idex", category: "Diamond Marketplace", title: "IDEX", desc: "Send stock to IDEX and receive trading updates back into Carat Logic.", opts: { size: 6.6 } },
     { x: 270, y: 310, mono: "+", label: "More marketplaces", slug: "request", category: "Diamond Marketplace", title: "More Marketplaces", desc: "Trade on another marketplace? Tell us which one and we’ll discuss the connection in your demo.", opts: { color: "#317a51", dashed: true } },
     { x: 730, y: 70, mono: "PP", label: "Peppol", slug: "peppol", category: "E-Invoicing · Europe", title: "Peppol", desc: "Send e-invoices to European trading partners and receive their incoming e-invoices directly in Carat Logic.", opts: {} },
+    { x: 910, y: 70, mono: "KSeF", label: "KSeF", slug: "ksef", category: "E-Invoicing · Poland", title: "KSeF", desc: "Send e-invoices through Poland’s National e-Invoicing System (KSeF) and receive incoming invoices from your Polish trading partners.", opts: { size: 6.6 } },
     { x: 860, y: 190, mono: "GST", label: "GST E-Invoicing", slug: "gst-e-invoicing", category: "E-Invoicing · India", title: "GST E-Invoicing", desc: "Send invoices for GST e-invoice registration and receive the registered details back on your invoice.", opts: { size: 6.6 } },
     { x: 730, y: 310, mono: "+", label: "Request a connection", slug: "request", category: "E-Invoicing", title: "Request a Connection", desc: "Need another e-invoicing or billing system? Let us know which connections matter to your business.", opts: { color: "#317a51", dashed: true } },
 ];
@@ -31,12 +33,13 @@ const PATHS = [
     { id: "lpintR1", d: "M 560 190 C 640 190 650 70 730 70" },
     { id: "lpintR2", d: "M 560 190 L 860 190" },
     { id: "lpintR3", d: "M 560 190 C 640 190 650 310 730 310" },
+    { id: "lpintR4", d: "M 730 70 L 910 70" },
 ];
 
 /*
  * Two-way data flow. Every motion path runs node → hub. Each carries two pulses:
- *  - out: green "Sent from Carat Logic" pulse, travelling hub → node (design: keyPoints="1;0")
- *  - in:  dark "Received into Carat Logic" pulse, travelling node → hub
+ *  - out: green pulse (data sent from Carat Logic), travelling hub → node (design: keyPoints="1;0")
+ *  - in:  dark pulse (data received into Carat Logic), travelling node → hub
  * dur/begin copied from the design's SMIL animateMotion (begin < 0 = phase offset).
  */
 const FLOWS = [
@@ -47,6 +50,7 @@ const FLOWS = [
     { d: "M 730 70 C 650 70 640 190 560 190", dur: 2.8, out: -1.0, in: -2.4 },
     { d: "M 860 190 L 560 190", dur: 3.0, out: -0.75, in: -2.25 },
     { d: "M 730 310 C 650 310 640 190 560 190", dur: 2.8, out: -0.1, in: -1.5 },
+    { d: "M 910 70 L 730 70 C 650 70 640 190 560 190", dur: 3.6, out: -0.6, in: -2.4 },
 ];
 const DOTS = FLOWS.flatMap((f, i) => [
     { path: i, dur: f.dur, begin: f.out, outbound: true },
@@ -73,10 +77,8 @@ const fadeVariants: Variants = {
 
 const STAGE_VIEWPORT = { once: true, margin: "0px 0px -10% 0px" } as const;
 
-const captionStyle: CSSProperties = { position: "absolute", top: "-6%", transform: "translateX(-50%)", fontSize: 12, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#8a908d" };
 const dashLine: CSSProperties = { width: 40, height: 2, backgroundImage: "repeating-linear-gradient(90deg, #317a51 0 6px, rgba(0,0,0,0) 6px 11px)" };
 const tile: CSSProperties = { width: 56, height: 56, borderRadius: 16, background: "#ffffff", border: "1px solid #e3e6e5", boxShadow: "0 8px 18px rgba(16,24,20,0.1)", display: "flex", alignItems: "center", justifyContent: "center" };
-const legendPill: CSSProperties = { display: "inline-flex", alignItems: "center", gap: 10, padding: "10px 16px", borderRadius: 999, background: "#ffffff", border: "1px solid #e6e9e8", fontSize: 14, fontWeight: 600, color: "#1d2320" };
 
 function SyncIcon({ size, strokeWidth }: { size: number; strokeWidth: number }) {
     return (
@@ -87,10 +89,25 @@ function SyncIcon({ size, strokeWidth }: { size: number; strokeWidth: number }) 
     );
 }
 
+const MotionLink = motion.create(Link);
+
 export function Integrations() {
     const reduce = useReducedMotion();
     const [hov, setHov] = useState(-1);
-    const leave = () => setHov(-1);
+    // Hover card: opens on node hover/focus and stays open while the pointer is on the card. Closing waits
+    // briefly so the pointer can travel from the node into the card without it disappearing.
+    const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+    const open = (i: number) => {
+        if (closeTimer.current) clearTimeout(closeTimer.current);
+        setHov(i);
+    };
+    const leave = () => {
+        if (closeTimer.current) clearTimeout(closeTimer.current);
+        closeTimer.current = setTimeout(() => setHov(-1), 180);
+    };
+    useEffect(() => () => {
+        if (closeTimer.current) clearTimeout(closeTimer.current);
+    }, []);
 
     const stageRef = useRef<HTMLDivElement>(null);
     const pathRefs = useRef<(SVGPathElement | null)[]>([]);
@@ -122,9 +139,9 @@ export function Integrations() {
     if (pop) {
         below = pop.y < 190 || pop.y === 190;
         const tx = pop.x < 200 ? "-12%" : pop.x > 800 ? "-88%" : "-50%";
-        const top = below ? `calc(${pop.y / 3.8}% + 52px)` : `calc(${pop.y / 3.8}% - 52px)`;
+        const top = below ? `calc(${pop.y / 3.8}% + 38px)` : `calc(${pop.y / 3.8}% - 38px)`;
         const ty = below ? "0" : "-100%";
-        popWrap = { position: "absolute", zIndex: 10, left: `${pop.x / 10}%`, top, transform: `translate(${tx}, ${ty})`, pointerEvents: "none" };
+        popWrap = { position: "absolute", zIndex: 10, left: `${pop.x / 10}%`, top, transform: `translate(${tx}, ${ty})`, padding: below ? "14px 0 0" : "0 0 14px" };
     }
 
     return (
@@ -134,9 +151,6 @@ export function Integrations() {
                 <Reveal style={{ maxWidth: 780, textAlign: "center", display: "flex", flexDirection: "column", alignItems: "center", gap: 18 }}>
                     <h2 style={{ margin: 0, fontSize: "clamp(34px, 4.4vw, 56px)", lineHeight: 1.08, fontWeight: 600, letterSpacing: "-0.04em", color: "#0c0c10" }}>Your Marketplaces and E-Invoicing. Connected Both Ways.</h2>
                     <p style={{ margin: 0, maxWidth: 600, fontSize: 17, lineHeight: 1.6, color: "#5f6663" }}>Send data out from Carat Logic Inventory and receive it back in. Share stock and invoices with marketplaces and e-invoicing networks, and bring updates and incoming e-invoices straight into your workflow.</p>
-                    <a href="/contact?tab=query" style={{ marginTop: 6, display: "inline-flex", alignItems: "center", gap: 10, padding: "14px 24px", borderRadius: 12, background: "linear-gradient(180deg, #1f2937 0%, #111827 100%)", color: "#ffffff", fontSize: 16, fontWeight: 600, boxShadow: "inset 0 1px 0 rgba(255,255,255,0.12), 0 10px 24px rgba(17,24,39,0.25)" }}>
-                        <span style={{ color: "#ffffff" }}>Explore all integrations</span>
-                    </a>
                 </Reveal>
 
                 {/* hub diagram */}
@@ -181,10 +195,6 @@ export function Integrations() {
                     <motion.div className="cl-hub" variants={hubVariants} style={{ position: "absolute", left: "50%", top: "50%", x: "-50%", y: "-50%", width: "13%", aspectRatio: 1, borderRadius: "28%", background: "#ffffff", border: "1px solid #dfe8e2", display: "flex", alignItems: "center", justifyContent: "center" }}>
                         {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img src="/design/0fc523af826128299a3c79d997fe5e16.png" alt="Carat Logic" style={{ width: "58%", height: "auto", display: "block" }} />
-                        <span aria-hidden="true" style={{ position: "absolute", bottom: -14, left: "50%", transform: "translateX(-50%)", display: "flex", alignItems: "center", gap: 6, padding: "5px 10px", borderRadius: 999, background: "#111827", color: "#ffffff", fontSize: 11, fontWeight: 600, whiteSpace: "nowrap", boxShadow: "0 6px 14px rgba(17,24,39,0.2)" }}>
-                            <SyncIcon size={12} strokeWidth={2.6} />
-                            Two-way sync
-                        </span>
                     </motion.div>
 
                     {/* nodes */}
@@ -196,11 +206,11 @@ export function Integrations() {
                             <motion.a
                                 key={`${n.slug}-${i}`}
                                 className="cl-node"
-                                href={NODE_HREF}
+                                href={integrationHref(n.slug)}
                                 aria-label={`${n.label} integration`}
-                                onMouseEnter={() => setHov(i)}
+                                onMouseEnter={() => open(i)}
                                 onMouseLeave={leave}
-                                onFocus={() => setHov(i)}
+                                onFocus={() => open(i)}
                                 onBlur={leave}
                                 variants={nodeVariants}
                                 custom={i}
@@ -230,13 +240,15 @@ export function Integrations() {
                     {/* hover popover */}
                     <AnimatePresence>
                         {pop && (
-                            <div key={hov} role="tooltip" style={popWrap}>
-                                <motion.div
+                            <div key={hov} style={popWrap} onMouseEnter={() => open(hov)} onMouseLeave={leave} onFocus={() => open(hov)} onBlur={leave}>
+                                <MotionLink
+                                    href={integrationHref(pop.slug)}
+                                    aria-label={`${pop.title}: ${pop.slug === "request" ? "tell us what you need" : "view details"}`}
                                     initial={reduce ? { opacity: 0 } : { opacity: 0, y: below ? -8 : 8, scale: 0.97 }}
                                     animate={{ opacity: 1, y: 0, scale: 1 }}
                                     exit={reduce ? { opacity: 0 } : { opacity: 0, y: below ? -4 : 4, scale: 0.98 }}
                                     transition={{ duration: reduce ? 0 : 0.22, ease: EASE }}
-                                    style={{ transformOrigin: below ? "50% 0%" : "50% 100%", width: 300, borderRadius: 22, background: "#ffffff", border: "1px solid #e6e9e8", boxShadow: "0 28px 56px rgba(16,24,20,0.18)", overflow: "hidden", textAlign: "left" }}
+                                    style={{ display: "block", color: "inherit", transformOrigin: below ? "50% 0%" : "50% 100%", width: 300, borderRadius: 22, background: "#ffffff", border: "1px solid #e6e9e8", boxShadow: "0 28px 56px rgba(16,24,20,0.18)", overflow: "hidden", textAlign: "left" }}
                                 >
                                     <div style={{ position: "relative", display: "flex", alignItems: "center", justifyContent: "center", height: 118, backgroundColor: "#f6f7f7", backgroundImage: "radial-gradient(#d9dddb 1px, rgba(0,0,0,0) 1px)", backgroundSize: "14px 14px", borderBottom: "1px solid #eceeed" }}>
                                         <span style={{ position: "absolute", left: 12, top: 12, padding: "4px 9px", borderRadius: 999, background: "#ffffff", border: "1px solid #e3e6e5", fontSize: 11, fontWeight: 600, color: "#3a403d" }}>{pop.category}</span>
@@ -256,7 +268,7 @@ export function Integrations() {
                                         <span style={{ fontSize: 14, lineHeight: 1.55, color: "#5f6663" }}>{pop.desc}</span>
                                     </div>
                                     <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "12px 20px 18px" }}>
-                                        <span style={{ fontSize: 13, fontWeight: 600, color: "#111827" }}>View details</span>
+                                        <span style={{ fontSize: 13, fontWeight: 600, color: "#111827" }}>{pop.slug === "request" ? "Tell us what you need" : "View details"}</span>
                                         <span style={{ width: 32, height: 32, borderRadius: 999, background: "#f1f3f2", display: "flex", alignItems: "center", justifyContent: "center" }}>
                                             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#111827" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                                                 <path d="M5 12h14" />
@@ -264,44 +276,17 @@ export function Integrations() {
                                             </svg>
                                         </span>
                                     </div>
-                                </motion.div>
+                                </MotionLink>
                             </div>
                         )}
                     </AnimatePresence>
 
-                    {/* group captions */}
-                    <motion.span variants={fadeVariants} custom={0.1} style={{ ...captionStyle, left: "18%" }}>
-                        Diamond marketplaces
-                    </motion.span>
-                    <motion.span variants={fadeVariants} custom={0.1} style={{ ...captionStyle, left: "79.5%" }}>
-                        E-invoicing
-                    </motion.span>
                 </motion.div>
-
-                {/* two-way legend */}
-                <Reveal style={{ marginTop: -12, display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 12 }}>
-                    <span style={legendPill}>
-                        <span aria-hidden="true" style={{ width: 10, height: 10, borderRadius: 999, background: "#317a51" }} />
-                        Sent from Carat Logic
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#317a51" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                            <path d="M5 12h14" />
-                            <path d="m13 6 6 6-6 6" />
-                        </svg>
-                    </span>
-                    <span style={legendPill}>
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#111827" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                            <path d="M19 12H5" />
-                            <path d="m11 6-6 6 6 6" />
-                        </svg>
-                        Received into Carat Logic
-                        <span aria-hidden="true" style={{ width: 10, height: 10, borderRadius: 999, background: "#111827" }} />
-                    </span>
-                </Reveal>
 
                 {/* mobile fallback (below 760px) */}
                 <Stagger className="cl-chips" style={{ flexWrap: "wrap", justifyContent: "center", gap: 10 }} stagger={0.05}>
                     {NODES.map((n, i) => (
-                        <motion.a key={`${n.slug}-${i}`} href={NODE_HREF} variants={itemVariants} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 14px", borderRadius: 14, background: "#ffffff", border: "1px solid #e6e9e8", fontSize: 14, fontWeight: 600, color: "#111114" }}>
+                        <motion.a key={`${n.slug}-${i}`} href={integrationHref(n.slug)} variants={itemVariants} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 14px", borderRadius: 14, background: "#ffffff", border: "1px solid #e6e9e8", fontSize: 14, fontWeight: 600, color: "#111114" }}>
                             <span style={{ fontSize: 12, fontWeight: 700, color: "#245c3e" }}>{n.mono}</span>
                             {n.label}
                         </motion.a>

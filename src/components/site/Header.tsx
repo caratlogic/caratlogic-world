@@ -5,6 +5,7 @@ import Link from "next/link";
 import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScroll } from "motion/react";
 import { EASE } from "@/components/landing/motion";
 import { MobileCtas } from "@/components/landing/HeroMobile";
+import { INTEGRATIONS, INTEGRATIONS_INDEX_HREF } from "./integrations";
 import "./header.css";
 
 const LOGO = "/design/a0624d387c799bef34880b03ced88e69.webp";
@@ -22,7 +23,6 @@ export const ROUTES = {
     blogs: "/blogs",
     guides: "/product-guides",
     faq: "/#faq",
-    integrations: "/#integrations",
     diamond: "/features/diamond-inventory",
     gem: "/features/gem-inventory",
     finance: "/features/financial-operations",
@@ -32,10 +32,14 @@ export const ROUTES = {
     kycOnboarding: "/features/kyc-onboarding",
     kycDocuments: "/features/kyc-documents",
     kycReview: "/features/kyc-review",
+    integrations: INTEGRATIONS_INDEX_HREF,
 } as const;
 
+/** Integration pages, in the order the design lists them (Features menu, mobile menu). */
+export const INTEGRATION_LINKS: { label: string; href: string }[] = INTEGRATIONS.map((i) => ({ label: i.name, href: i.href }));
+
 type MenuKey = "products" | "features" | "resources";
-type LinkItem = { label: string; href: string; desc?: string };
+type LinkItem = { label: string; href: string; desc?: string; head?: boolean };
 
 const L = (label: string, href: string, desc?: string): LinkItem => ({ label, href, desc });
 
@@ -184,12 +188,19 @@ function ProductsPanel() {
 
 /* ---------------------------------------------------------------- Features menu (NavFeatures design) */
 
-const FEATURE_GROUPS: { kicker: string; product: string; all: string; links: LinkItem[] }[] = [
+const FEATURE_GROUPS: { kicker: string; product: string; all?: string; allLabel?: string; links: LinkItem[] }[] = [
     {
         kicker: "Inventory features",
         product: "Carat Logic Inventory",
         all: ROUTES.inventory,
         links: [L("Diamond Inventory", ROUTES.diamond), L("Gem Inventory", ROUTES.gem), L("Financial Operations", ROUTES.finance), L("Manufacturing", ROUTES.manufacturing), L("Business Contacts & Partners", ROUTES.contacts)],
+    },
+    {
+        kicker: "Marketplaces & e-invoicing",
+        product: "Integrations",
+        all: ROUTES.integrations,
+        allLabel: "View all integrations",
+        links: INTEGRATION_LINKS.map((l) => L(l.label, l.href)),
     },
     {
         kicker: "KYC features",
@@ -200,39 +211,36 @@ const FEATURE_GROUPS: { kicker: string; product: string; all: string; links: Lin
 ];
 
 function FeaturesPanel() {
-    const linkStyle: CSSProperties = { display: "flex", alignItems: "center", minHeight: 40, padding: "8px 10px", borderRadius: 10, fontSize: 15, fontWeight: 500, color: "#1d2320", whiteSpace: "nowrap" };
+    const linkStyle: CSSProperties = { display: "flex", alignItems: "center", minHeight: 40, padding: "8px 10px", borderRadius: 10, fontSize: 15, lineHeight: 1.3, fontWeight: 500, color: "#1d2320" };
     return (
         <div className="cl-feat2" style={{ maxWidth: 1280, margin: "0 auto", padding: "40px 24px 36px", boxSizing: "border-box" }}>
             <div className="cl-feat2-grid">
-                {FEATURE_GROUPS.map((g, i) => {
-                    const group = (
+                {FEATURE_GROUPS.map((g, i) => (
+                    <Col key={g.kicker} i={i} className={i > 0 ? "cl-feat2-sep" : undefined}>
                         <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-                            <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 16, paddingBottom: 14, borderBottom: "1px solid #eceeed" }}>
+                            <div style={{ paddingBottom: 14, borderBottom: "1px solid #eceeed" }}>
                                 <span style={{ display: "flex", flexDirection: "column", gap: 3 }}>
                                     <span style={{ fontSize: 12, fontWeight: 600, letterSpacing: "0.18em", textTransform: "uppercase", color: "#6b736f" }}>{g.kicker}</span>
                                     <span style={{ fontSize: 20, fontWeight: 600, letterSpacing: "-0.02em", color: "#0c0c10" }}>{g.product}</span>
                                 </span>
                             </div>
-                            <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0,1fr))", gap: "2px 12px" }}>
+                            <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0,1fr))", gap: "2px 10px" }}>
                                 {g.links.map((l) => (
                                     <Link key={l.label} className="cl-lk cl-feat-link" href={l.href} style={linkStyle}>
                                         {l.label}
                                     </Link>
                                 ))}
-                                <Link href={g.all} style={{ ...linkStyle, gap: 8, fontWeight: 600, color: "#245c3e" }}>
-                                    Explore all features <span aria-hidden="true">→</span>
-                                </Link>
+                                {g.all && (
+                                    <Link href={g.all} style={{ ...linkStyle, gap: 8, fontWeight: 600, color: "#245c3e", whiteSpace: "nowrap" }}>
+                                        {g.allLabel ?? "Explore all features"} <span aria-hidden="true">→</span>
+                                    </Link>
+                                )}
                             </div>
                         </div>
-                    );
-                    return (
-                        <Col key={g.kicker} i={i} className={i === 1 ? "cl-feat2-second" : undefined}>
-                            {group}
-                        </Col>
-                    );
-                })}
+                    </Col>
+                ))}
             </div>
-            <Col i={2} style={{ marginTop: 28, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 20, padding: "16px 20px", borderRadius: 16, background: "#f6f7f7" }}>
+            <Col i={3} style={{ marginTop: 28, display: "flex", alignItems: "center", justifyContent: "space-between", gap: 20, padding: "16px 20px", borderRadius: 16, background: "#f6f7f7" }}>
                 <span style={{ fontSize: 14, color: "#3a403d" }}>Get both products and all features with the Enterprise package.</span>
                 <span style={{ display: "flex", gap: 22 }}>
                     <Link href={ROUTES.pricing} style={{ fontSize: 14, fontWeight: 600, color: "#245c3e" }}>
@@ -378,22 +386,32 @@ function ResourcesPanel() {
 
 type MobileItem = { key: string; label: string; href?: string; links?: LinkItem[] };
 
+/** A `head` entry renders as a small sub-heading inside an open section (design's H(...) rows). */
+const H = (label: string): LinkItem => ({ label, href: "", head: true });
+
 const MOBILE_ITEMS: MobileItem[] = [
-    { key: "products", label: "Products", links: [L("Carat Logic Inventory", ROUTES.inventory, "Stock, memos, orders and payments"), L("Carat Logic KYC", ROUTES.kyc, "Forms, documents, review and renewal"), L("Articles", ROUTES.blogs)] },
+    { key: "products", label: "Products", links: [L("Carat Logic Inventory", ROUTES.inventory, "Stock, memos, orders and payments"), L("Carat Logic KYC", ROUTES.kyc, "Forms, documents, review and renewal")] },
     {
         key: "features",
         label: "Features",
         links: [
+            H("Carat Logic Inventory"),
             L("Diamond Inventory", ROUTES.diamond),
             L("Gem Inventory", ROUTES.gem),
-            L("Memo Management", ROUTES.inventory),
-            L("Orders & Invoicing", ROUTES.finance),
-            L("Stone Search & Filters", ROUTES.diamond),
-            L("WhatsApp Sharing & Client Portal", ROUTES.inventory),
-            L("Financial Reports", ROUTES.finance),
+            L("Financial Operations", ROUTES.finance),
+            L("Manufacturing", ROUTES.manufacturing),
+            L("Business Contacts & Partners", ROUTES.contacts),
+            H("Integrations"),
+            ...INTEGRATION_LINKS.map((l) => L(l.label, l.href)),
+            L("All integrations", ROUTES.integrations),
+            H("Carat Logic KYC"),
+            L("Custom KYC Forms", ROUTES.kycForms),
+            L("Business Contact Onboarding", ROUTES.kycOnboarding),
+            L("Document Collection", ROUTES.kycDocuments),
+            L("Review & Status Tracking", ROUTES.kycReview),
         ],
     },
-    { key: "resources", label: "Resources", links: [L("Product Walkthrough", ROUTES.guides, "Watch Inventory and KYC in action"), L("Blogs", ROUTES.blogs), L("FAQs", ROUTES.faq)] },
+    { key: "resources", label: "Resources", links: [L("Blogs", ROUTES.blogs), L("Product Guides", ROUTES.guides)] },
     { key: "pricing", label: "Pricing", href: ROUTES.pricing },
     { key: "contact", label: "Contact Us", href: ROUTES.contact },
 ];
@@ -479,7 +497,12 @@ function MobileMenu({ onClose }: { onClose: () => void }) {
                                                 style={{ overflow: "hidden" }}
                                             >
                                                 <ul style={{ listStyle: "none", margin: 0, padding: "0 0 16px", display: "flex", flexDirection: "column", gap: 4 }}>
-                                                    {it.links.map((l) => (
+                                                    {it.links.map((l) =>
+                                                        l.head ? (
+                                                            <li key={`h-${l.label}`}>
+                                                                <span style={{ display: "block", padding: "10px 4px 2px", fontSize: 11, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "#6b736f" }}>{l.label}</span>
+                                                            </li>
+                                                        ) : (
                                                         <li key={l.label}>
                                                             <Link href={l.href} style={{ display: "flex", flexDirection: "column", gap: 2, padding: "10px 12px", borderRadius: 12, background: "#f6f7f7" }}>
                                                                 <span style={{ fontSize: 15, fontWeight: 600, color: "#0c0c10" }}>{l.label}</span>
@@ -659,7 +682,12 @@ export function Header() {
                             }
                             const menu = t.menu;
                             return (
-                                <button key={t.key} type="button" aria-expanded={on} aria-haspopup="true" onClick={() => setOpen(on ? null : menu)} onMouseEnter={() => setOpen(menu)} style={tabStyle}>
+                                <button key={t.key} type="button" aria-expanded={on} aria-haspopup="true" onClick={(e) => {
+                                        // A mouse already opened the menu on hover, so a click must not toggle it shut;
+                                        // keyboard and touch clicks toggle.
+                                        const pointer = (e.nativeEvent as PointerEvent).pointerType;
+                                        setOpen(pointer === "mouse" ? menu : on ? null : menu);
+                                    }} onMouseEnter={() => setOpen(menu)} style={tabStyle}>
                                     {t.label}
                                     <motion.svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" animate={{ rotate: on ? 180 : 0 }} transition={{ duration: 0.2, ease: "easeOut" }}>
                                         <path d="m6 9 6 6 6-6" />

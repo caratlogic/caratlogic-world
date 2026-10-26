@@ -3,6 +3,7 @@
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useState, type CSSProperties } from "react";
 import { EASE, Reveal, Stagger, itemVariants } from "@/components/landing/motion";
+import { DocBlocks } from "./DocBlocks";
 import type { FeatureDocContent } from "./types";
 import "./feature-doc.css";
 
@@ -196,6 +197,7 @@ export function FeatureDocDesktop({ content }: { content: FeatureDocContent }) {
                                     {s.paragraphs.map((p) => (
                                         <p key={p}>{p}</p>
                                     ))}
+                                    {s.blocks && <DocBlocks blocks={s.blocks} />}
                                     {s.callout && (
                                         <div style={{ display: "flex", gap: 14, padding: "18px 20px", borderRadius: 16, background: "#f6f7f7", border: "1px solid #eceeed" }}>
                                             <span style={{ flex: "none", width: 4, borderRadius: 999, background: "#317a51" }} />

@@ -1,0 +1,10 @@
+import type { Metadata } from "next";
+import { NotFoundView } from "@/components/site/NotFoundView";
+
+export const metadata: Metadata = {
+    title: "Page Not Found | Carat Logic",
+};
+
+export default function NotFound() {
+    return <NotFoundView />;
+}
