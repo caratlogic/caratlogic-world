@@ -16,29 +16,37 @@ const PLANS: Plan[] = [
         name: "Standard Package",
         desc: "For a small team managing one inventory module.",
         price: "€150",
-        features: ["Choose the Gem or Diamond module", "Up to 3 active users", "All 9 core platform features", "Custom roles and permissions", "Unlimited stones and documents"],
+        features: ["1 inventory module of your choice", "Up to 3 active users", "1 free API key", "All 9 core platform features", "Custom roles and permissions", "Unlimited stones and documents"],
     },
     {
         name: "Premium Package",
         desc: "For teams that need more users on one inventory module.",
         price: "€200",
-        features: ["Choose the Gem or Diamond module", "Up to 7 active users", "All 9 core platform features", "Custom roles and permissions", "Unlimited stones and documents"],
+        features: ["1 inventory module of your choice", "Up to 7 active users", "1 free API key", "All 9 core platform features", "Custom roles and permissions", "Unlimited stones and documents"],
     },
     {
         name: "Enterprise Package",
-        desc: "For teams managing both diamonds and gemstones, with customer and supplier KYC included.",
+        desc: "For teams that need every platform feature, with customer and supplier KYC included.",
         price: "€250",
         hl: true,
-        features: ["Gem and Diamond modules", "Up to 7 active users", "All 17 platform features", "KYC application included", "Custom roles and permissions", "Unlimited stones and documents"],
+        features: ["1 inventory module of your choice", "Up to 7 active users", "1 free API key", "All 17 platform features", "KYC application included", "Custom roles and permissions", "Unlimited stones and documents"],
     },
 ];
 
+const MODULES = ["Gem Inventory", "Natural Diamond Inventory", "Lab Grown Diamond Inventory"];
+
+const ADDONS = [
+    { name: "Extra inventory module", price: "+€50", desc: "Every package includes one inventory module. Add any of the other modules for €50 per module, per month.", tags: MODULES },
+    { name: "Extra API key", price: "+€25", desc: "Every package includes 1 free API key. Each additional API key is €25 per key, per month.", tags: [] },
+];
+
 const QA: [string, string][] = [
-    ["How do I access the ₹0 trial?", "Book a free demo first. After the walkthrough, the Carat Logic team can help arrange access to the trial."],
-    ["What is included in the Standard and Premium packages?", "Both packages include one inventory module—Gem or Diamond—all 9 core platform features, custom roles and permissions, and unlimited stones and documents. Standard supports up to 3 active users; Premium supports up to 7."],
-    ["Which package includes both Gem and Diamond inventory?", "The Enterprise Package includes both modules, up to 7 active users, all 17 platform features and the KYC application."],
+    ["How do I access the €0 trial?", "Book a free demo first. After the walkthrough, the Carat Logic team can help arrange access to the trial."],
+    ["What is included in every package?", "Every package includes one inventory module of your choice—Gem, Natural Diamond or Lab Grown Diamond—plus 1 free API key, custom roles and permissions, and unlimited stones and documents."],
+    ["How is the package price calculated?", "Each price is the package fee plus €50 for one inventory module: Standard is €100 + €50 = €150, Premium is €150 + €50 = €200 and Enterprise is €200 + €50 = €250 per month."],
+    ["Can I add more inventory modules or API keys?", "Yes. On any package, each extra inventory module is €50 per month and each extra API key is €25 per month."],
     ["Are stones or documents limited by package?", "No. All three paid packages include unlimited stones and documents."],
-    ["Which package should I choose?", "Choose Standard for one inventory module and up to 3 users. Choose Premium if you need the same single-module setup for up to 7 users. Choose Enterprise if you need both Gem and Diamond modules and KYC."],
+    ["Which package should I choose?", "Choose Standard for up to 3 users. Choose Premium if you need up to 7 users. Choose Enterprise if you also need all 17 platform features and customer and supplier KYC. Add extra inventory modules or API keys to any package."],
 ];
 
 /**
@@ -82,15 +90,12 @@ const notIncluded = (
 
 const CMP_ROWS: { label: string; cells: [ReactNode, ReactNode, ReactNode] }[] = [
     { label: "Monthly price", cells: ["€150", "€200", "€250"] },
-    {
-        label: "Inventory access",
-        cells: [
-            <>Gem <b>or</b> Diamond module</>,
-            <>Gem <b>or</b> Diamond module</>,
-            <>Gem <b>and</b> Diamond modules</>,
-        ],
-    },
+    { label: "Price breakdown", cells: ["€100 + €50 inventory", "€150 + €50 inventory", "€200 + €50 inventory"] },
+    { label: "Inventory modules included", cells: ["1 of your choice", "1 of your choice", "1 of your choice"] },
+    { label: "Extra inventory module", cells: ["+€50 / month", "+€50 / month", "+€50 / month"] },
     { label: "Active users", cells: ["Up to 3", "Up to 7", "Up to 7"] },
+    { label: "API keys included", cells: ["1 free", "1 free", "1 free"] },
+    { label: "Extra API key", cells: ["+€25 / month", "+€25 / month", "+€25 / month"] },
     { label: "Platform features", cells: ["All 9 core features", "All 9 core features", "All 17 platform features"] },
     { label: "Customer and supplier KYC", cells: [notIncluded, notIncluded, included] },
     { label: "Custom roles and permissions", cells: [included, included, included] },
@@ -193,9 +198,9 @@ export function PricingPageDesktop() {
                 >
                     <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                         <span style={{ fontSize: 15, fontWeight: 600, color: "#245c3e" }}>Start with a free trial</span>
-                        <h2 style={{ margin: 0, fontSize: 34, lineHeight: 1.15, fontWeight: 600, letterSpacing: "-0.03em", color: "#0c0c10" }}>Explore Carat Logic for ₹0</h2>
+                        <h2 style={{ margin: 0, fontSize: 34, lineHeight: 1.15, fontWeight: 600, letterSpacing: "-0.03em", color: "#0c0c10" }}>Explore Carat Logic for €0</h2>
                         <p style={{ margin: 0, maxWidth: 680, fontSize: 17, lineHeight: 1.65, color: "#3f4643" }}>
-                            Book a free demo first. After the walkthrough, our team can help arrange access to the ₹0 trial so you can explore Carat Logic before choosing a paid package.
+                            Book a free demo first. After the walkthrough, our team can help arrange access to the €0 trial so you can explore Carat Logic before choosing a paid package.
                         </p>
                         <p style={{ margin: "6px 0 0", fontSize: 14, lineHeight: 1.55, color: "#6b736f", fontStyle: "italic" }}>
                             Trial access begins after a demo. Trial duration and access details can be confirmed during your walkthrough.
@@ -236,6 +241,32 @@ export function PricingPageDesktop() {
                             </motion.article>
                         ))}
                     </Stagger>
+                    <Reveal y={16} style={{ marginTop: 56 }}>
+                        <h3 style={{ margin: "0 0 20px", fontSize: 28, lineHeight: 1.2, fontWeight: 600, letterSpacing: "-0.025em", color: "#0c0c10" }}>Add-ons for any package</h3>
+                        <div style={{ display: "grid", gridTemplateColumns: "repeat(2, minmax(0, 1fr))", gap: 20 }}>
+                            {ADDONS.map((a) => (
+                                <div key={a.name} style={{ padding: "28px 32px", borderRadius: 24, background: "#f6f7f7", display: "flex", flexDirection: "column", gap: 10 }}>
+                                    <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 16 }}>
+                                        <h4 style={{ margin: 0, fontSize: 20, fontWeight: 600, letterSpacing: "-0.02em", color: "#0c0c10" }}>{a.name}</h4>
+                                        <span style={{ flex: "none", fontSize: 26, fontWeight: 600, letterSpacing: "-0.03em", color: "#0c0c10" }}>
+                                            {a.price}
+                                            <span style={{ fontSize: 14, fontWeight: 400, letterSpacing: 0, color: "#5f6663" }}> / month</span>
+                                        </span>
+                                    </div>
+                                    <p style={{ margin: 0, fontSize: 15, lineHeight: 1.6, color: "#3f4643" }}>{a.desc}</p>
+                                    {a.tags.length > 0 && (
+                                        <ul aria-label="Available inventory modules" style={{ listStyle: "none", margin: "6px 0 0", padding: 0, display: "flex", flexWrap: "wrap", gap: 8 }}>
+                                            {a.tags.map((t) => (
+                                                <li key={t} style={{ padding: "6px 12px", borderRadius: 999, background: "#ffffff", border: "1px solid #e6e9e8", fontSize: 14, fontWeight: 500, color: "#245c3e" }}>
+                                                    {t}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
+                                </div>
+                            ))}
+                        </div>
+                    </Reveal>
                     <Reveal y={16} style={{ marginTop: 48, display: "flex", justifyContent: "center" }}>
                         <a href="/contact?tab=demo" className="cl-btn" style={{ display: "flex", alignItems: "center", gap: 14, padding: "8px 8px 8px 26px", borderRadius: 999, background: "#111827", color: "#ffffff", fontSize: 17, fontWeight: 600, boxShadow: "0 0 0 5px #ffffff, 0 0 0 6px #dfe3e1, 0 12px 26px rgba(17,24,39,0.22)" }}>
                             <span style={{ color: "#ffffff" }}>Book a demo</span>
@@ -244,7 +275,7 @@ export function PricingPageDesktop() {
                             </span>
                         </a>
                     </Reveal>
-                    <p style={{ margin: "24px 0 0", textAlign: "center", fontSize: 14, color: "#6b736f", fontStyle: "italic" }}>Paid package prices are shown per month in euros.</p>
+                    <p style={{ margin: "24px 0 0", textAlign: "center", fontSize: 14, color: "#6b736f", fontStyle: "italic" }}>Paid package and add-on prices are shown per month in euros.</p>
                 </div>
             </section>
 
