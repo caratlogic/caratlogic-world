@@ -95,7 +95,7 @@ export function BlogsMobile() {
                     {posts.map((p) => (
                         <motion.a
                             key={p.t}
-                            href="#"
+                            href={p.href}
                             className="cl-post"
                             layout={!reduce}
                             variants={cardVariants}

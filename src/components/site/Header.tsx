@@ -6,6 +6,7 @@ import { AnimatePresence, motion, useMotionValueEvent, useReducedMotion, useScro
 import { EASE } from "@/components/landing/motion";
 import { MobileCtas } from "@/components/landing/HeroMobile";
 import { INTEGRATIONS, INTEGRATIONS_INDEX_HREF } from "./integrations";
+import { BLOGS, blogHref, formatBlogDate } from "@/content/blogs";
 import "./header.css";
 
 const LOGO = "/design/a0624d387c799bef34880b03ced88e69.webp";
@@ -292,12 +293,9 @@ const LEARN = [
     },
 ];
 
-// The design's article rows are placeholders; these are the first posts from the Blogs page.
-const ARTICLES = [
-    { tag: "Inventory guide", title: "How to Organise Diamond Stock by 4Cs, Certificates and Location", meta: "Oct 14, 2026 · 5 min read", img: DIA, pos: "25% top" },
-    { tag: "Inventory guide", title: "A Simple Guide to Memo Management for Gem Traders", meta: "Oct 8, 2026 · 4 min read", img: GEM, pos: "35% top" },
-    { tag: "KYC & compliance", title: "What to Collect in a Supplier KYC Form", meta: "Sep 30, 2026 · 6 min read", img: OVR, pos: "60% top" },
-];
+// The latest blog posts (src/content/blogs); thumbnails reuse the design's product screenshots.
+const ARTICLE_IMGS = [{ img: DIA, pos: "25% top" }, { img: GEM, pos: "35% top" }, { img: OVR, pos: "60% top" }];
+const ARTICLES = BLOGS.slice(0, 3).map((b, i) => ({ tag: b.category, title: b.title, meta: `${formatBlogDate(b.date)} · ${b.readMinutes} min read`, href: blogHref(b.slug), ...ARTICLE_IMGS[i] }));
 
 const CHIPS = ["Inventory guides", "KYC & compliance", "Industry insights", "Product updates"];
 
@@ -327,7 +325,7 @@ function ResourcesPanel() {
                 <span style={kickerStyle}>Blogs &amp; articles</span>
                 <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
                     {ARTICLES.map((a) => (
-                        <Link key={a.title} className="cl-art" href={ROUTES.blogs} style={{ display: "flex", gap: 14, alignItems: "center" }}>
+                        <Link key={a.title} className="cl-art" href={a.href} style={{ display: "flex", gap: 14, alignItems: "center" }}>
                             <span style={{ flex: "none", width: 96, height: 72, borderRadius: 12, overflow: "hidden", background: "#eef1ef", border: "1px solid #e3e6e5" }}>
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
                                 <img src={a.img} alt="" style={cropStyle(a.pos)} />
